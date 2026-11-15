@@ -1,0 +1,2431 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>診療放射線技師 試験対策マスター｜要点ノート＆過去問演習</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', '"Inter"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            navy: {
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#090d16',
+            },
+            teal: {
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Noto Sans JP', 'Inter', sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 赤シート暗記マーカー */
+    .red-sheet-word {
+      display: inline-block;
+      padding: 0.05rem 0.35rem;
+      margin: 0 0.1rem;
+      border-radius: 0.35rem;
+      font-weight: 700;
+      color: #dc2626;
+      background-color: #fef2f2;
+      border-bottom: 2px solid #f87171;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* 赤シートON時の隠蔽スタイル */
+    body.red-sheet-active .red-sheet-word:not(.peeked) {
+      background-color: #ef4444;
+      color: #ef4444;
+      border-bottom-color: #b91c1c;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+    }
+
+    body.red-sheet-active .red-sheet-word.peeked {
+      background-color: #fee2e2;
+      color: #b91c1c;
+      border-bottom-color: #ef4444;
+    }
+
+    /* 数式・ブロック用赤シート */
+    .red-sheet-box {
+      transition: all 0.2s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    body.red-sheet-active .red-sheet-box:not(.peeked) {
+      background-color: #ef4444 !important;
+      color: #ef4444 !important;
+      border-color: #b91c1c !important;
+    }
+    body.red-sheet-active .red-sheet-box:not(.peeked) * {
+      opacity: 0 !important;
+    }
+
+    /* カスタムスクロールバー */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e2e8f0;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+
+    /* フェードインアニメーション */
+    .fade-in {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- トップヘッダー -->
+  <header class="bg-navy-900 text-white shadow-lg sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 py-3">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+        <!-- アプリタイトル -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-400 to-sky-600 flex items-center justify-center shadow-md shrink-0">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m-7-7l7-7 7 7M5 6h14" />
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-base sm:text-lg font-extrabold tracking-tight leading-tight">診療放射線技師 試験対策マスター</h1>
+              <p class="text-[11px] text-slate-300">総論重要ポイント暗記 ＆ 第72〜76回国試過去問演習</p>
+            </div>
+          </div>
+
+          <!-- モバイル用ステータスバッジ -->
+          <div id="mobile-score-badge" class="sm:hidden bg-slate-800 border border-slate-700 px-2.5 py-1 rounded-lg text-xs font-mono text-teal-300">
+            正答率: <span id="header-rate-mobile">0</span>%
+          </div>
+        </div>
+
+        <!-- メインモード切替タブ -->
+        <nav class="grid grid-cols-2 gap-2 bg-slate-800/90 p-1 rounded-xl border border-slate-700/80" role="tablist">
+          <button id="tab-study" onclick="switchMainMode('study')" role="tab" aria-selected="true"
+            class="flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-teal-600 text-white shadow">
+            <span>📖</span>
+            <span>勉強用アプリ</span>
+            <span class="hidden md:inline text-[11px] font-normal opacity-90">(要点＆暗記)</span>
+          </button>
+          <button id="tab-quiz" onclick="switchMainMode('quiz')" role="tab" aria-selected="false"
+            class="flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all text-slate-300 hover:text-white hover:bg-slate-700/60">
+            <span>✍️</span>
+            <span>問題アプリ</span>
+            <span class="hidden md:inline text-[11px] font-normal opacity-90">(過去問＆演習)</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- モード1: 勉強用アプリ（要点ノート＆赤シート暗記＆公式シミュレーター） -->
+  <!-- ===================================================================== -->
+  <main id="view-study" class="flex-1 max-w-6xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 fade-in">
+    
+    <!-- コントロールバー：赤シートスイッチ＆章ナビゲーション -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-3 sm:p-4 mb-5 sticky top-[62px] sm:top-[64px] z-30">
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-50 text-sky-800 border border-sky-200">
+            暗記ツール
+          </span>
+          <p class="text-xs text-slate-600 hidden sm:block">赤い語句をタップすると個別にチラ見できます</p>
+        </div>
+
+        <div class="flex items-center gap-2 ml-auto">
+          <button id="btn-reset-peeks" onclick="resetAllPeeks()" class="hidden px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+            再びすべて隠す
+          </button>
+          <button id="btn-toggle-redsheet" onclick="toggleRedSheet()"
+            class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-rose-50 text-rose-700 border-2 border-rose-300 hover:bg-rose-100 shadow-sm">
+            <span id="redsheet-indicator" class="w-3 h-3 rounded-full bg-rose-500"></span>
+            <span id="redsheet-label">🟥 赤シート：OFF（タップで隠す）</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 章ナビゲーション -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pt-3 pb-1 no-scrollbar">
+        <button onclick="filterChapter('all')" data-chap-btn="all" class="chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-navy-900 text-white transition">
+          すべて表示
+        </button>
+        <button onclick="filterChapter('chap1')" data-chap-btn="chap1" class="chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          第1章 X線管構造・特性
+        </button>
+        <button onclick="filterChapter('chap2')" data-chap-btn="chap2" class="chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          第2章 高電圧・インバータ
+        </button>
+        <button onclick="filterChapter('chap3')" data-chap-btn="chap3" class="chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          第3章 グリッド・AEC
+        </button>
+        <button onclick="filterChapter('chap4')" data-chap-btn="chap4" class="chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          第4章 CR・DSA・FPD・I.I.
+        </button>
+        <button onclick="filterChapter('chap5')" data-chap-btn="chap5" class="chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          第5章 計測・線量・半減期
+        </button>
+        <button onclick="filterChapter('sim')" data-chap-btn="sim" class="chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-50 text-teal-800 border border-teal-200 hover:bg-teal-100 transition">
+          🧮 公式シミュレーター
+        </button>
+      </div>
+    </div>
+
+    <!-- 学習ノートコンテンツ群 -->
+    <div class="space-y-6">
+
+      <!-- ==================== 第1章 ==================== -->
+      <section id="chap1" class="chapter-section bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-navy-900 to-slate-800 text-white px-5 py-3.5 flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold text-teal-300 tracking-wider uppercase">CHAPTER 01</span>
+            <h2 class="text-base sm:text-lg font-extrabold">X線管の構造と特性（焦点・負荷・ヒール・空間電荷）</h2>
+          </div>
+          <button onclick="jumpToQuizByCat('X線管・高電圧')" class="text-xs bg-teal-600 hover:bg-teal-500 text-white font-bold px-3 py-1.5 rounded-lg transition shrink-0">
+            この章の問題を解く →
+          </button>
+        </div>
+
+        <div class="p-4 sm:p-6 space-y-6">
+          <!-- 1-1 回転陽極X線管 vs 固定陽極X線管 -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base mb-2.5 flex items-center gap-2">
+                <span class="w-2 h-5 bg-teal-600 rounded-full"></span>
+                回転陽極X線管の4大構成要素
+              </h3>
+              <ul class="space-y-2 text-xs sm:text-sm leading-relaxed text-slate-700">
+                <li>
+                  <strong class="text-navy-900">① ガラスバルブ：</strong>材質は <span class="red-sheet-word">硼珪酸硬質ガラス</span>。役割は<span class="red-sheet-word">真空の維持</span>（電子が空気と相互作用するのを防ぐ）、<span class="red-sheet-word">高電圧の絶縁</span>と耐高温性。
+                </li>
+                <li>
+                  <strong class="text-navy-900">② 陰極（フィラメント）：</strong>フィラメント電流を与えると加熱され、<span class="red-sheet-word">熱電子</span>を放出する。集束電極で電子ビームを集束。
+                </li>
+                <li>
+                  <strong class="text-navy-900">③ ターゲット：</strong>材質は <span class="red-sheet-word">タングステン（W）</span>。<span class="red-sheet-word">高原子番号</span>（制動X線発生効率が高い）かつ<span class="red-sheet-word">高融点</span>。
+                </li>
+                <li>
+                  <strong class="text-navy-900">④ 陽極回転子：</strong>ターゲットを高速回転させ、実焦点を分散させて<span class="red-sheet-word">熱容量（短時間許容負荷）</span>を大きくする。
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base mb-2.5 flex items-center gap-2">
+                <span class="w-2 h-5 bg-sky-600 rounded-full"></span>
+                固定陽極X線管 ＆ 焦点外X線の特徴
+              </h3>
+              <ul class="space-y-2 text-xs sm:text-sm leading-relaxed text-slate-700">
+                <li>
+                  <strong class="text-navy-900">固定陽極X線管：</strong>同じ場所に電子が当たり続けるため<span class="red-sheet-word">熱容量が小さい</span>が、構造上<span class="red-sheet-word">焦点外X線の発生が少ない</span>。
+                </li>
+                <li>
+                  <strong class="text-navy-900">焦点外X線とは：</strong>ターゲットで跳ね返った<span class="red-sheet-word">二次電子</span>が焦点以外のターゲットに当たって生じるX線。画像のボケ・<span class="red-sheet-word">コントラスト低下</span>の原因。
+                </li>
+                <li>
+                  <strong class="text-navy-900">焦点外X線の分布と線質：</strong><span class="red-sheet-word">焦点近傍</span>で最も多く発生し、焦点から離れるほど減少。線質は焦点近傍が最も<span class="red-sheet-word">軟質</span>で、離れるほど<span class="red-sheet-word">硬質</span>となる。
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 1-2 照射野限定器（X線可動絞り）図解＆要点 -->
+          <div class="bg-amber-50/60 rounded-xl p-4 border border-amber-200/80">
+            <h3 class="font-bold text-navy-900 text-sm sm:text-base mb-3 flex items-center gap-2">
+              <span class="px-2 py-0.5 bg-amber-500 text-white text-xs rounded-md font-bold">頻出図解</span>
+              照射野限定器（X線可動絞り）の羽根と付加フィルタの役割
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+              <!-- インラインSVG図 -->
+              <div class="md:col-span-5 bg-white p-3 rounded-xl border border-amber-200 flex justify-center">
+                <svg viewBox="0 0 280 220" class="w-full max-w-[260px] h-auto">
+                  <!-- 焦点 -->
+                  <circle cx="140" cy="18" r="7" fill="#dc2626"/>
+                  <text x="154" y="22" font-size="11" font-weight="bold" fill="#0f172a">X線管焦点</text>
+                  <!-- X線束 -->
+                  <polygon points="140,18 75,205 205,205" fill="#fee2e2" opacity="0.55"/>
+                  <line x1="140" y1="18" x2="80" y2="205" stroke="#dc2626" stroke-width="1.5"/>
+                  <line x1="140" y1="18" x2="140" y2="205" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3"/>
+                  <line x1="140" y1="18" x2="200" y2="205" stroke="#dc2626" stroke-width="1.5"/>
+                  <!-- 奥羽根 -->
+                  <path d="M98,42 L106,65 L85,65" fill="none" stroke="#1e293b" stroke-width="4"/>
+                  <path d="M182,42 L174,65 L195,65" fill="none" stroke="#1e293b" stroke-width="4"/>
+                  <text x="198" y="56" font-size="10" font-weight="bold" fill="#0f766e">奥羽根</text>
+                  <!-- 付加フィルタ -->
+                  <rect x="108" y="72" width="64" height="6" rx="2" fill="#0284c7"/>
+                  <text x="12" y="78" font-size="10" font-weight="bold" fill="#0369a1">付加フィルタ(Al,Cu)</text>
+                  <!-- 下羽根 -->
+                  <line x1="82" y1="86" x2="112" y2="86" stroke="#334155" stroke-width="4"/>
+                  <line x1="168" y1="86" x2="198" y2="86" stroke="#334155" stroke-width="4"/>
+                  <text x="202" y="90" font-size="10" font-weight="bold" fill="#0f766e">下羽根</text>
+                  <!-- 電球＆ミラー -->
+                  <circle cx="52" cy="125" r="13" fill="#fef08a" stroke="#eab308" stroke-width="2"/>
+                  <text x="41" y="150" font-size="10" font-weight="bold" fill="#854d0e">電球</text>
+                  <line x1="112" y1="102" x2="168" y2="146" stroke="#64748b" stroke-width="3"/>
+                  <text x="174" y="138" font-size="10" font-weight="bold" fill="#475569">ミラー</text>
+                  <line x1="65" y1="125" x2="138" y2="125" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3 2"/>
+                  <!-- 上羽根 -->
+                  <path d="M92,162 L85,182 L65,182" fill="none" stroke="#1e293b" stroke-width="4"/>
+                  <path d="M188,162 L195,182 L215,182" fill="none" stroke="#1e293b" stroke-width="4"/>
+                  <text x="16" y="185" font-size="10" font-weight="bold" fill="#0f766e">上羽根</text>
+                </svg>
+              </div>
+
+              <div class="md:col-span-7 space-y-2.5 text-xs sm:text-sm text-slate-700">
+                <div class="bg-white p-3 rounded-xl border border-amber-200/70">
+                  <span class="font-bold text-sky-800">● 付加フィルタ：</span>材質は <span class="red-sheet-word">アルミニウム（Al）, 銅（Cu）</span>。体で吸収される低エネルギー（軟質）X線をあらかじめ吸収し、<span class="red-sheet-word">被ばく線量を減少</span>させる。
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200/70">
+                  <span class="font-bold text-teal-800">● 奥羽根（焦点側）：</span><span class="red-sheet-word">焦点外X線</span>の低減。
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200/70">
+                  <span class="font-bold text-teal-800">● 下羽根（中間）：</span><span class="red-sheet-word">散乱線・漏れ線量</span>の低減。
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200/70">
+                  <span class="font-bold text-teal-800">● 上羽根（患者側）：</span><span class="red-sheet-word">X線照射野の制限</span>（光照射野と一致させる）。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1-3 短時間許容負荷・ブルーミング・ヒール・空間電荷 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">短時間許容負荷とターゲット角度</h3>
+              <div class="bg-white p-2.5 rounded-lg border border-slate-200 font-mono text-xs sm:text-sm text-center font-bold text-navy-900">
+                W = (l / sinθ) × √B × √(D・N)
+              </div>
+              <p class="text-xs text-slate-600">
+                l:実焦点長さ、θ:ターゲット角度、B:実焦点幅、D:焦点軌道直径、N:陽極回転速度
+              </p>
+              <ul class="space-y-1.5 text-xs sm:text-sm text-slate-700">
+                <li>・実効焦点が同一なら、ターゲット角度θを<span class="red-sheet-word">小さく</span>するほど実焦点が大きくなり、短時間許容負荷は<span class="red-sheet-word">大きく</span>なる。</li>
+                <li>・陽極回転数Nや軌道直径Dを大きくすると<span class="red-sheet-word">平方根（√）</span>に比例して大きくなる。</li>
+                <li>・管電圧リプル百分率を<span class="red-sheet-word">小さく</span>すると大きくなる。</li>
+              </ul>
+            </div>
+
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">ブルーミング効果 ＆ ヒール効果</h3>
+              <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+                <li>
+                  <strong class="text-navy-900">ブルーミング効果：</strong>管電流が大きい（電子密度が高い）と熱電子同士の<span class="red-sheet-word">クーロン斥力</span>で反発し、<span class="red-sheet-word">実効焦点が大きく</span>なる現象。<span class="red-sheet-word">低電圧・高電流</span>で顕著。
+                </li>
+                <li>
+                  <strong class="text-navy-900">ヒール効果：</strong>ターゲット角度が<span class="red-sheet-word">小さい</span>ほど発生しやすい。X線強度は<span class="red-sheet-word">陰極側で多く、陽極側で少なく</span>なる。
+                </li>
+                <li>
+                  <strong class="text-navy-900">陽極側の線質硬化：</strong>ターゲット自身を透過して低エネルギー成分が吸収されるため、<span class="red-sheet-word">実効エネルギーは高くなるが強度は下がる</span>。
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 1-4 管電圧-管電流特性 -->
+          <div class="bg-sky-50/70 rounded-xl p-4 border border-sky-200">
+            <h3 class="font-bold text-navy-900 text-sm sm:text-base mb-2">管電圧 - 管電流特性（空間電荷領域 vs 飽和電流領域）</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-700">
+              <div class="bg-white p-3 rounded-lg border border-sky-100">
+                <p class="font-bold text-sky-900 mb-1">① 空間電荷制限領域（低管電圧域）</p>
+                <p>・管電流は管電圧の <span class="red-sheet-word">3/2乗（または2乗）</span> に比例。</p>
+                <p>・陰極-陽極間距離の <span class="red-sheet-word">2乗に反比例</span>。</p>
+                <p>・<span class="red-sheet-word">小焦点</span>ほど電子通路が狭く空間電荷が増加するため、空間電荷領域で動作しやすい。</p>
+              </div>
+              <div class="bg-white p-3 rounded-lg border border-sky-100">
+                <p class="font-bold text-sky-900 mb-1">② 飽和電流領域（高管電圧域）</p>
+                <p>・管電流は <span class="red-sheet-word">フィラメント電流（If）</span> によって決定され、管電圧の影響は少ない。</p>
+                <p>・<strong class="text-navy-900">エミッション特性：</strong>管電圧一定でフィラメント電流を変化させたときの管電流の特性。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 第2章 ==================== -->
+      <section id="chap2" class="chapter-section bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-navy-900 to-slate-800 text-white px-5 py-3.5 flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold text-teal-300 tracking-wider uppercase">CHAPTER 02</span>
+            <h2 class="text-base sm:text-lg font-extrabold">X線高電圧装置・インバータ式・変圧器計算</h2>
+          </div>
+          <button onclick="jumpToQuizByCat('X線管・高電圧')" class="text-xs bg-teal-600 hover:bg-teal-500 text-white font-bold px-3 py-1.5 rounded-lg transition shrink-0">
+            この章の問題を解く →
+          </button>
+        </div>
+
+        <div class="p-4 sm:p-6 space-y-5">
+          <!-- インバータ概要 -->
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 text-xs sm:text-sm text-slate-700 space-y-2">
+            <p class="font-bold text-navy-900 text-sm sm:text-base">インバータ式X線装置の基本動作と高周波化のメリット・デメリット</p>
+            <p>・電力変換の流れ：<span class="red-sheet-word">商用交流 → 直流 → 高周波交流</span>。単相電源でも三相12ピークと同等の出力が得られ、電源位相に関係なくX線を発生・遮断できる。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+              <div class="bg-white p-3 rounded-lg border border-teal-200">
+                <p class="font-bold text-teal-800 mb-1">⭕ 高周波化の利点</p>
+                <p>① 変圧器の誘起起電力が高い（∝巻数×鉄心断面積×磁束密度×周波数）ため、巻数・鉄心断面積を減らし<span class="red-sheet-word">小型軽量化</span>できる。</p>
+                <p>② <span class="red-sheet-word">管電圧リプル百分率</span>が小さくなる（高電圧ケーブルが<span class="red-sheet-word">長い</span>ほど静電容量でリプルはさらに低減）。</p>
+              </div>
+              <div class="bg-white p-3 rounded-lg border border-rose-200">
+                <p class="font-bold text-rose-800 mb-1">❌ 高周波化の欠点</p>
+                <p>① <span class="red-sheet-word">鉄損</span>増大による変換効率の低下（ヒステリシス損は周波数に<span class="red-sheet-word">比例</span>、渦電流損は周波数の<span class="red-sheet-word">2乗に比例</span>）。</p>
+                <p>② 小型化による<span class="red-sheet-word">絶縁の低下</span>、および発生ノイズの増加。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 共振形 vs 非共振形 比較表 -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm text-left border-collapse rounded-xl overflow-hidden border border-slate-200">
+              <thead>
+                <tr class="bg-navy-900 text-white">
+                  <th class="p-3 font-bold">比較項目</th>
+                  <th class="p-3 font-bold bg-teal-800">共振形インバータ</th>
+                  <th class="p-3 font-bold bg-slate-700">非共振形（方形波）インバータ</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 bg-white">
+                <tr>
+                  <td class="p-3 font-bold bg-slate-50">出力電圧の調整法</td>
+                  <td class="p-3"><span class="red-sheet-word">駆動周波数</span>とインバータの<span class="red-sheet-word">位相シフト角</span></td>
+                  <td class="p-3">チョッパの<span class="red-sheet-word">パルス幅（デューティ比）</span>（インバータ周波数は一定）</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold bg-slate-50">DC-DCコンバータ(チョッパ)</td>
+                  <td class="p-3"><span class="red-sheet-word">不要</span></td>
+                  <td class="p-3"><span class="red-sheet-word">必要</span>（チョッパ＋フィルタ）</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold bg-slate-50">フィードバック制御対象</td>
+                  <td class="p-3"><span class="red-sheet-word">インバータ駆動回路</span>（周波数調整）</td>
+                  <td class="p-3"><span class="red-sheet-word">チョッパ駆動回路</span>（パルス幅調整）</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold bg-slate-50">スイッチング時の電力損失</td>
+                  <td class="p-3"><span class="red-sheet-word">小さい</span>（大出力に向く）</td>
+                  <td class="p-3"><span class="red-sheet-word">大きい</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 変圧器計算と整流方式別実効値換算 -->
+          <div class="bg-indigo-50/70 rounded-xl p-4 border border-indigo-200 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">変圧器の巻線比と整流方式別「実効値」換算ルール</h3>
+              <span class="font-mono text-xs font-bold bg-white px-2.5 py-1 rounded-lg border border-indigo-200 text-indigo-900">
+                n₂/n₁ = V₂/V₁ = I₁/I₂ ⇔ V₁×I₁ = V₂×I₂
+              </span>
+            </div>
+            <p class="text-xs text-slate-700">
+              ※一次側（V₁, I₁）は<strong>実効値</strong>表示、二次側の管電圧は<strong>ピーク値</strong>・管電流は<strong>平均値</strong>で与えられるため、以下の係数で<strong>実効値へ換算</strong>して計算する！
+            </p>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs sm:text-sm text-left border-collapse bg-white rounded-lg overflow-hidden border border-indigo-200">
+                <thead class="bg-indigo-900 text-white">
+                  <tr>
+                    <th class="p-2.5">高電圧装置の形式</th>
+                    <th class="p-2.5">二次電圧 V₂（実効値換算）</th>
+                    <th class="p-2.5">二次電流 I₂（実効値換算）</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-indigo-100">
+                  <tr>
+                    <td class="p-2.5 font-bold">① インバータ式・定電圧・三相12ピーク</td>
+                    <td class="p-2.5">ピーク値 × <span class="red-sheet-word">1（ほぼ等しい）</span></td>
+                    <td class="p-2.5">平均値 × <span class="red-sheet-word">1（ほぼ等しい）</span></td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 font-bold">② 三相6ピーク形</td>
+                    <td class="p-2.5">ピーク値 × <span class="red-sheet-word">0.956</span></td>
+                    <td class="p-2.5">平均値 × <span class="red-sheet-word">1（ほぼ等しい）</span></td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 font-bold">③ 単相2ピーク形（全波整流）</td>
+                    <td class="p-2.5">ピーク値 × <span class="red-sheet-word">1 / √2</span></td>
+                    <td class="p-2.5">平均値 × <span class="red-sheet-word">π / (2√2) ≒ 1.11</span></td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 font-bold">④ 単相1ピーク形（半波整流）</td>
+                    <td class="p-2.5">ピーク値 × <span class="red-sheet-word">1 / 2</span></td>
+                    <td class="p-2.5">平均値 × <span class="red-sheet-word">π / 2 ≒ 1.57</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-indigo-200 text-xs text-slate-700">
+              <strong class="text-indigo-900">【頻出計算例】</strong> 無負荷時一次電圧200Vで管電圧120kVを発生する<strong>単相1ピーク形</strong>で、管電流200mA通電時の一次電流 I₁ は？<br>
+              → V₂ = 120,000 × (1/2) = 60,000V、I₂ = 0.2 × (3.14/2) = 0.314A → I₁ = (60,000 × 0.314) / 200 = <span class="red-sheet-word">94.2 A</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 第3章 ==================== -->
+      <section id="chap3" class="chapter-section bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-navy-900 to-slate-800 text-white px-5 py-3.5 flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold text-teal-300 tracking-wider uppercase">CHAPTER 03</span>
+            <h2 class="text-base sm:text-lg font-extrabold">散乱線除去グリッド ＆ 自動露出制御（AEC）</h2>
+          </div>
+          <button onclick="jumpToQuizByCat('グリッド・AEC')" class="text-xs bg-teal-600 hover:bg-teal-500 text-white font-bold px-3 py-1.5 rounded-lg transition shrink-0">
+            この章の問題を解く →
+          </button>
+        </div>
+
+        <div class="p-4 sm:p-6 space-y-5">
+          <!-- グリッド性能 -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2.5 text-xs sm:text-sm text-slate-700">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">グリッドの基本と幾何学的性能</h3>
+              <p>・目的：<span class="red-sheet-word">散乱線</span>を除去し、<span class="red-sheet-word">X線コントラスト</span>を改善。欠点は<span class="red-sheet-word">被ばく線量の増加</span>（管電圧50kV以下目安では不要）。</p>
+              <p>・種類：<span class="red-sheet-word">平行グリッド</span>（集束せず、緊急撮影など）と <span class="red-sheet-word">集束グリッド</span>（箔の延長が1直線に集束、決まった撮影距離がある）。</p>
+              <div class="bg-white p-3 rounded-lg border border-slate-200 space-y-1.5">
+                <p><strong>① グリッド比（r）：</strong> <span class="font-mono font-bold text-teal-700">r = h / D</span>（箔の間隔 D に対する鉛箔の高さ h の比）</p>
+                <p><strong>② グリッド密度（N）：</strong> <span class="font-mono font-bold text-teal-700">N = 1 / (D + d)</span> [本/<span class="red-sheet-word">cm</span>]（1cmあたりの鉛箔の数。dは箔の厚さ）</p>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2.5 text-xs sm:text-sm text-slate-700">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">グリッドの物理的性能（4大指標）</h3>
+              <p class="text-xs text-slate-500">全X線透過率: Tt、一次X線透過率: Tp、散乱X線透過率: Ts とする</p>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                  <p class="font-bold text-navy-900">① 露出倍数（B）</p>
+                  <p class="font-mono font-bold text-rose-600 mt-0.5"><span class="red-sheet-word">B = 1 / Tt</span></p>
+                  <p class="text-[11px] text-slate-500 mt-0.5">全X線透過率の逆数</p>
+                </div>
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                  <p class="font-bold text-navy-900">② 選択度（Σ）</p>
+                  <p class="font-mono font-bold text-teal-700 mt-0.5"><span class="red-sheet-word">Σ = Tp / Ts</span></p>
+                  <p class="text-[11px] text-slate-500 mt-0.5">散乱線透過率に対する一次線比</p>
+                </div>
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                  <p class="font-bold text-navy-900">③ コントラスト改善比（K）</p>
+                  <p class="font-mono font-bold text-teal-700 mt-0.5"><span class="red-sheet-word">K = Tp / Tt</span></p>
+                  <p class="text-[11px] text-slate-500 mt-0.5">全X線透過率に対する一次線比</p>
+                </div>
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                  <p class="font-bold text-navy-900">④ イメージ改善係数（Q）</p>
+                  <p class="font-mono font-bold text-teal-700 mt-0.5"><span class="red-sheet-word">Q = Tp² / Tt</span></p>
+                  <p class="text-[11px] text-slate-500 mt-0.5">一次透過率の2乗 ÷ 全透過率</p>
+                </div>
+              </div>
+              <p class="text-xs font-medium text-navy-900 bg-teal-50 p-2 rounded-lg border border-teal-200">
+                ★ B・Σ・K は「グリッド比が大きいほど<span class="red-sheet-word">大きく</span>なり、管電圧が高いほど<span class="red-sheet-word">小さく</span>なる」！
+              </p>
+            </div>
+          </div>
+
+          <!-- AEC 前面採光 vs 後面採光 -->
+          <div class="space-y-3">
+            <h3 class="font-bold text-navy-900 text-sm sm:text-base">自動露出制御装置（AEC：ホトタイマ）の検出方式と特性</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs sm:text-sm text-left border-collapse rounded-xl overflow-hidden border border-slate-200">
+                <thead class="bg-navy-900 text-white">
+                  <tr>
+                    <th class="p-3">方式</th>
+                    <th class="p-3">検出器の位置</th>
+                    <th class="p-3">特徴・X線量・散乱線への影響</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                  <tr>
+                    <td class="p-3 font-bold text-sky-900 bg-sky-50/50">前面採光方式</td>
+                    <td class="p-3">カセッテの<span class="red-sheet-word">前面</span>（X線管側）</td>
+                    <td class="p-3">カセッテ入射前に検出するため濃度は低め。検出器の<span class="red-sheet-word">自己吸収</span>により被ばく線量増加・検出器から<span class="red-sheet-word">散乱線</span>が発生。</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 font-bold text-teal-900 bg-teal-50/50">後面採光方式</td>
+                    <td class="p-3">カセッテの<span class="red-sheet-word">後面</span>（裏側）</td>
+                    <td class="p-3">カセッテ透過後に検出するためX線量がやや多く濃度は高め。検出器からの<span class="red-sheet-word">散乱線の影響を受けない</span>。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-700">
+              <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <strong class="text-navy-900 block mb-1">● 管電圧特性</strong>
+                <span class="red-sheet-word">低管電圧領域</span>ほど検出方式の違いによる画像濃度への影響が大きい。
+              </div>
+              <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <strong class="text-navy-900 block mb-1">● 被写体厚特性（薄い場合）</strong>
+                撮影時間が極端に短くなると、<span class="red-sheet-word">応答時間特性</span>の遅れにより過照射となり画像濃度が<span class="red-sheet-word">上昇</span>する。
+              </div>
+              <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <strong class="text-navy-900 block mb-1">● 被写体厚特性（厚い場合）</strong>
+                透過不足で撮影時間が延長し、<span class="red-sheet-word">最大曝射時間（バックアップ時間）</span>の制限がかかると濃度が<span class="red-sheet-word">低下</span>する。
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 第4章 ==================== -->
+      <section id="chap4" class="chapter-section bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-navy-900 to-slate-800 text-white px-5 py-3.5 flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold text-teal-300 tracking-wider uppercase">CHAPTER 04</span>
+            <h2 class="text-base sm:text-lg font-extrabold">CR・DSA・FPD・I.I.・透視撮影台</h2>
+          </div>
+          <button onclick="jumpToQuizByCat('CR・FPD・I.I.・画像機器')" class="text-xs bg-teal-600 hover:bg-teal-500 text-white font-bold px-3 py-1.5 rounded-lg transition shrink-0">
+            この章の問題を解く →
+          </button>
+        </div>
+
+        <div class="p-4 sm:p-6 space-y-5">
+          <!-- CR と DSA -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2 text-xs sm:text-sm text-slate-700">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">CR（コンピューテッドラジオグラフィ）</h3>
+              <p>・<strong>イメージングプレート（IP）：</strong>輝尽性蛍光体 <span class="red-sheet-word">BaFX:Eu²⁺</span>（XはCl, Br, I）。</p>
+              <p>・<strong>読取原理：</strong><span class="red-sheet-word">He-Neレーザー光</span>（輝尽励起光：波長 <span class="red-sheet-word">633 nm</span>、<span class="red-sheet-word">赤色光</span>）を当てると、波長約 <span class="red-sheet-word">400 nm</span>（<span class="red-sheet-word">青紫光</span>）の輝尽蛍光を発する。これを<span class="red-sheet-word">光電子増倍管</span>で増幅しA-D変換。</p>
+              <p>・<strong>消去と特徴：</strong>撮影後は<span class="red-sheet-word">白色光</span>を当てて残存情報を消去。リアルタイム観察は<span class="red-sheet-word">できない</span>。</p>
+              <p>・<strong>画像処理：</strong>①階調処理（コントラスト調整）、②周波数処理（<span class="red-sheet-word">ボケマスク処理［非鮮鋭マスク処理］</span>：原画像−平滑化画像で鮮鋭化）、③サブトラクション処理。</p>
+            </div>
+
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2 text-xs sm:text-sm text-slate-700">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">DSA（デジタルサブトラクション血管造影）</h3>
+              <p>・造影前（<span class="red-sheet-word">マスク像</span>）と造影後（<span class="red-sheet-word">ライブ像</span>）を引き算（時間差分法が主流）。コントラスト分解能が高く、FPD・I.I.ならリアルタイム観察可能。</p>
+              <p>・<strong>欠点：</strong><span class="red-sheet-word">体動</span>に弱く、骨などがズレて写る<span class="red-sheet-word">ミスレジストレーションアーチファクト</span>が生じる。</p>
+              <p>・<strong>補正処理：</strong>①<span class="red-sheet-word">リマスキング処理</span>（体動後の画像にマスク像を変更）、②<span class="red-sheet-word">ピクセルシフト処理</span>（マスク像をピクセル単位で移動）。</p>
+              <p>・<strong>時間フィルタ：</strong><span class="red-sheet-word">リカーシブフィルタ</span>（ノイズを低減するが、時間分解能・空間分解能が低下）。</p>
+            </div>
+          </div>
+
+          <!-- FPD 直接変換 vs 間接変換 -->
+          <div class="space-y-2">
+            <h3 class="font-bold text-navy-900 text-sm sm:text-base">FPD（フラットパネルディテクタ）の変換方式と補正</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs sm:text-sm text-left border-collapse rounded-xl overflow-hidden border border-slate-200">
+                <thead class="bg-navy-900 text-white">
+                  <tr>
+                    <th class="p-3">方式</th>
+                    <th class="p-3">変換プロセス・使用材質</th>
+                    <th class="p-3">画素サイズ・特徴</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                  <tr>
+                    <td class="p-3 font-bold text-indigo-900 bg-indigo-50/40">直接変換方式</td>
+                    <td class="p-3">X線を半導体 <span class="red-sheet-word">a-Se（アモルファスセレン）</span> で<strong>直接電荷（電子・正孔）</strong>に変換 → TFT読出し</td>
+                    <td class="p-3">約 <span class="red-sheet-word">150 μm</span>。光の拡散がないため間接変換より<strong>空間分解能が高い</strong>。</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 font-bold text-teal-900 bg-teal-50/40">間接変換方式</td>
+                    <td class="p-3">シンチレータ（<span class="red-sheet-word">CsI:Tl</span> や <span class="red-sheet-word">Gd₂O₂S:Tb</span>）で可視光に変換 → フォトダイオード（<span class="red-sheet-word">a-Si</span>）で電荷に変換 → TFT読出し</td>
+                    <td class="p-3">約 <span class="red-sheet-word">150〜200 μm</span>。CsIは柱状結晶構造で光拡散を抑制。少ない線量で高感度。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700 pt-1">
+              <div class="bg-amber-50/70 p-3 rounded-xl border border-amber-200">
+                <strong class="text-navy-900">● オフセット補正：</strong><span class="red-sheet-word">X線を照射せず</span>に暗電流（漏れ電流）による信号のばらつきを補正。
+              </div>
+              <div class="bg-amber-50/70 p-3 rounded-xl border border-amber-200">
+                <strong class="text-navy-900">● ゲイン補正：</strong><span class="red-sheet-word">均一なX線を照射</span>して各画素ごとの感度ばらつきを補正。
+              </div>
+            </div>
+          </div>
+
+          <!-- I.I. と 透視撮影台 -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div class="lg:col-span-8 bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2.5 text-xs sm:text-sm text-slate-700">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">イメージインテンシファイア（I.I.）の構造と視野可変</h3>
+              <p>・<strong>材質：</strong>入力窓＝<span class="red-sheet-word">硼珪酸ガラス, Al, Ti</span> ／ 入力蛍光面＝<span class="red-sheet-word">CsI:Na</span>（微細柱状結晶）／ 出力蛍光面＝<span class="red-sheet-word">ZnCdS:Ag</span>（微細粒状結晶）。</p>
+              <p>・<strong>出力輝度：</strong><span class="red-sheet-word">（像の縮小率）² × 陽極電圧</span> に比例（入力の <span class="red-sheet-word">10³〜10⁴ 倍</span> に増倍）。</p>
+              <div class="overflow-x-auto pt-1">
+                <table class="w-full text-xs text-center border-collapse bg-white rounded-lg overflow-hidden border border-slate-300">
+                  <thead class="bg-slate-800 text-white">
+                    <tr>
+                      <th class="p-2">入力視野</th>
+                      <th class="p-2">拡大率</th>
+                      <th class="p-2">明るさ</th>
+                      <th class="p-2">輝度均一性</th>
+                      <th class="p-2">像歪み</th>
+                      <th class="p-2">空間分解能</th>
+                      <th class="p-2">被ばく線量</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-200">
+                    <tr>
+                      <td class="p-2 font-bold bg-sky-50">小さい（拡大）</td>
+                      <td class="p-2">大きい</td>
+                      <td class="p-2"><span class="red-sheet-word">暗い</span></td>
+                      <td class="p-2"><span class="red-sheet-word">均一</span></td>
+                      <td class="p-2"><span class="red-sheet-word">小さい</span></td>
+                      <td class="p-2"><span class="red-sheet-word">良い</span></td>
+                      <td class="p-2"><span class="red-sheet-word">多い</span></td>
+                    </tr>
+                    <tr>
+                      <td class="p-2 font-bold bg-slate-50">大きい（通常）</td>
+                      <td class="p-2">小さい</td>
+                      <td class="p-2"><span class="red-sheet-word">明るい</span></td>
+                      <td class="p-2"><span class="red-sheet-word">不均一</span></td>
+                      <td class="p-2"><span class="red-sheet-word">大きい</span></td>
+                      <td class="p-2"><span class="red-sheet-word">悪い</span></td>
+                      <td class="p-2"><span class="red-sheet-word">少ない</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="lg:col-span-4 bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2.5 text-xs sm:text-sm text-slate-700">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">透視撮影台の2タイプ</h3>
+              <div class="bg-white p-3 rounded-lg border border-slate-200">
+                <p class="font-bold text-rose-800">① オーバーテーブルタイプ</p>
+                <p>X線管が天板の<span class="red-sheet-word">上方</span>。体位変換は容易だが、患者・<span class="red-sheet-word">術者の被ばくが多い</span>。</p>
+              </div>
+              <div class="bg-white p-3 rounded-lg border border-slate-200">
+                <p class="font-bold text-teal-800">② アンダーテーブルタイプ</p>
+                <p>X線管が天板の<span class="red-sheet-word">下方</span>。天板で散乱線が遮蔽されるため<span class="red-sheet-word">術者の被ばくが少ない</span>。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 第5章 ==================== -->
+      <section id="chap5" class="chapter-section bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-navy-900 to-slate-800 text-white px-5 py-3.5 flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold text-teal-300 tracking-wider uppercase">CHAPTER 05</span>
+            <h2 class="text-base sm:text-lg font-extrabold">放射線計測・線量概念・荷重係数・半減期・空洞原理</h2>
+          </div>
+          <button onclick="jumpToQuizByCat('物理・計測・線量')" class="text-xs bg-teal-600 hover:bg-teal-500 text-white font-bold px-3 py-1.5 rounded-lg transition shrink-0">
+            この章の問題を解く →
+          </button>
+        </div>
+
+        <div class="p-4 sm:p-6 space-y-5">
+          <!-- 線量定義一覧 -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm text-left border-collapse rounded-xl overflow-hidden border border-slate-200">
+              <thead class="bg-navy-900 text-white">
+                <tr>
+                  <th class="p-3">物理量</th>
+                  <th class="p-3">SI単位</th>
+                  <th class="p-3">対象放射線</th>
+                  <th class="p-3">定義・計算式</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 bg-white">
+                <tr>
+                  <td class="p-3 font-bold">吸収線量（D）</td>
+                  <td class="p-3 font-mono font-bold"><span class="red-sheet-word">Gy (J/kg)</span></td>
+                  <td class="p-3"><span class="red-sheet-word">すべての放射線</span></td>
+                  <td class="p-3">単位質量あたりに与えられた平均エネルギー ＝ エネルギーフルエンス × <span class="red-sheet-word">質量エネルギー吸収係数</span></td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold">カーマ（K）</td>
+                  <td class="p-3 font-mono font-bold"><span class="red-sheet-word">Gy (J/kg)</span></td>
+                  <td class="p-3"><span class="red-sheet-word">非荷電粒子</span></td>
+                  <td class="p-3">非荷電粒子から放出された荷電粒子の初期運動エネルギー総和 ＝ エネルギーフルエンス × <span class="red-sheet-word">質量エネルギー転移係数</span></td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold">照射線量（X）</td>
+                  <td class="p-3 font-mono font-bold"><span class="red-sheet-word">C/kg</span></td>
+                  <td class="p-3"><span class="red-sheet-word">X線・γ線</span>（空気）</td>
+                  <td class="p-3">単位質量あたりの空気中で発生した正負どちらかの全イオン電荷の絶対値。（W値＝<span class="red-sheet-word">33.97 eV</span>、e＝1.6×10⁻¹⁹ C）</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold">等価線量（HT）</td>
+                  <td class="p-3 font-mono font-bold"><span class="red-sheet-word">Sv (J/kg)</span></td>
+                  <td class="p-3">すべての放射線</td>
+                  <td class="p-3">吸収線量 × <span class="red-sheet-word">放射線荷重係数（WR）</span></td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold">実効線量（E）</td>
+                  <td class="p-3 font-mono font-bold"><span class="red-sheet-word">Sv (J/kg)</span></td>
+                  <td class="p-3">すべての放射線</td>
+                  <td class="p-3">Σ（等価線量 × <span class="red-sheet-word">組織荷重係数（WT）</span>） ※WTの総和は <span class="red-sheet-word">1.0</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 放射線荷重係数 & 組織荷重係数 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+              <h3 class="font-bold text-navy-900 text-sm mb-2">放射線荷重係数 WR（ICRP 2007年勧告）</h3>
+              <table class="w-full text-xs text-left bg-white rounded-lg overflow-hidden border border-slate-200">
+                <thead class="bg-slate-800 text-white">
+                  <tr><th class="p-2">放射線の種類</th><th class="p-2">WR</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                  <tr><td class="p-2">光子（X線・γ線）、電子、μ粒子</td><td class="p-2 font-mono font-bold"><span class="red-sheet-word">1</span></td></tr>
+                  <tr><td class="p-2">陽子、荷電パイ中間子</td><td class="p-2 font-mono font-bold"><span class="red-sheet-word">2</span></td></tr>
+                  <tr><td class="p-2">α粒子、核分裂片、重イオン</td><td class="p-2 font-mono font-bold"><span class="red-sheet-word">20</span></td></tr>
+                  <tr><td class="p-2">中性子（エネルギー別連続関数）</td><td class="p-2 font-mono font-bold"><span class="red-sheet-word">2.5 〜 21</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+              <h3 class="font-bold text-navy-900 text-sm mb-2">組織荷重係数 WT（合計 ＝ 1.0）</h3>
+              <table class="w-full text-xs text-left bg-white rounded-lg overflow-hidden border border-slate-200">
+                <thead class="bg-slate-800 text-white">
+                  <tr><th class="p-2">組織・臓器</th><th class="p-2">WT</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                  <tr><td class="p-2">赤色骨髄、結腸、肺、胃、乳房、残りの組織（6項目）</td><td class="p-2 font-mono font-bold"><span class="red-sheet-word">0.12</span></td></tr>
+                  <tr><td class="p-2">生殖腺（生殖器）</td><td class="p-2 font-mono font-bold"><span class="red-sheet-word">0.08</span></td></tr>
+                  <tr><td class="p-2">膀胱、食道、肝臓、甲状腺（4臓器）</td><td class="p-2 font-mono font-bold"><span class="red-sheet-word">0.04</span></td></tr>
+                  <tr><td class="p-2">骨表面、脳、唾液腺、皮膚（4組織）</td><td class="p-2 font-mono font-bold"><span class="red-sheet-word">0.01</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 放射能・半減期・Bragg-Gray空洞原理 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-700">
+            <div class="bg-teal-50/60 rounded-xl p-4 border border-teal-200 space-y-2">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">放射能と有効（実効）半減期</h3>
+              <p>・<strong>放射能の単位：</strong><span class="red-sheet-word">Bq（ベクレル ＝ s⁻¹）</span>。1 dps ＝ 1 Bq、1 dpm ＝ <span class="red-sheet-word">1/60 Bq</span>。</p>
+              <p>・<strong>有効半減期（Te）：</strong>物理学的半減期 Tp と生物学的半減期 Tb の合成。</p>
+              <div class="bg-white p-2.5 rounded-lg border border-teal-200 font-mono text-center font-bold text-navy-900">
+                1/Te = 1/Tp + 1/Tb ⇔ <span class="red-sheet-word">Te = (Tp × Tb) / (Tp + Tb)</span>
+              </div>
+              <p class="text-xs">例：⁹⁹ᵐTc（Tp=6時間）で Tb=3時間なら Te = (6×3)/(6+3) = <span class="red-sheet-word">2時間</span>。</p>
+            </div>
+
+            <div class="bg-sky-50/60 rounded-xl p-4 border border-sky-200 space-y-2">
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">Bragg-Gray（ブラッグ・グレイ）の空洞原理</h3>
+              <p>空気で満たされた空洞電離箱の測定値から、周囲媒質中の吸収線量 D_med を求める原理。</p>
+              <div class="bg-white p-2.5 rounded-lg border border-sky-200 font-mono text-xs text-center font-bold text-navy-900">
+                D_med = (Q_air / m) × (W_air / e) × <span class="red-sheet-word">[(S_col/ρ)_med / (S_col/ρ)_air]</span> × P
+              </div>
+              <p class="text-xs">※（Q_air/m）×（W_air/e）＝ 空気の吸収線量 D_air。Pは擾乱係数。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 🧮 公式シミュレーター ==================== -->
+      <section id="sim" class="chapter-section bg-white rounded-2xl shadow-sm border border-teal-300 overflow-hidden">
+        <div class="bg-gradient-to-r from-teal-700 to-sky-700 text-white px-5 py-3.5">
+          <span class="text-xs font-bold text-teal-100 tracking-wider uppercase">INTERACTIVE SIMULATOR</span>
+          <h2 class="text-base sm:text-lg font-extrabold">🧮 試験頻出！公式計算シミュレーター</h2>
+        </div>
+
+        <div class="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-3 gap-5">
+          
+          <!-- シミュレーター1：有効半減期 -->
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="inline-block px-2 py-0.5 bg-teal-100 text-teal-800 text-[11px] font-bold rounded mb-1">計算ツール ①</span>
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">有効（実効）半減期 Te</h3>
+              <p class="text-xs text-slate-500 mb-3">Te = (Tp × Tb) / (Tp + Tb)</p>
+
+              <div class="space-y-2.5 text-xs">
+                <div>
+                  <div class="flex justify-between font-bold mb-1">
+                    <span>物理学的半減期 Tp [時間]</span>
+                    <span id="sim-tp-val" class="font-mono text-teal-700">6.0 h</span>
+                  </div>
+                  <input id="sim-tp" type="range" min="1" max="48" step="0.5" value="6" oninput="updateHalfLifeSim()" class="w-full accent-teal-600">
+                </div>
+                <div>
+                  <div class="flex justify-between font-bold mb-1">
+                    <span>生物学的半減期 Tb [時間]</span>
+                    <span id="sim-tb-val" class="font-mono text-sky-700">3.0 h</span>
+                  </div>
+                  <input id="sim-tb" type="range" min="1" max="48" step="0.5" value="3" oninput="updateHalfLifeSim()" class="w-full accent-sky-600">
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white p-3 rounded-xl border border-teal-200 text-center">
+              <p class="text-[11px] text-slate-500">有効半減期 Te</p>
+              <p id="sim-te-res" class="text-2xl font-mono font-extrabold text-teal-700 my-0.5">2.00 時間</p>
+              <p id="sim-te-formula" class="text-[11px] font-mono text-slate-600">(6 × 3) / (6 + 3) = 2.00</p>
+            </div>
+          </div>
+
+          <!-- シミュレーター2：グリッド物理性能 -->
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="inline-block px-2 py-0.5 bg-sky-100 text-sky-800 text-[11px] font-bold rounded mb-1">計算ツール ②</span>
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">グリッド物理性能（B・Σ・K・Q）</h3>
+              <p class="text-xs text-slate-500 mb-3">透過率 Tp, Ts と散乱線含有率から算出</p>
+
+              <div class="space-y-2 text-xs">
+                <div>
+                  <div class="flex justify-between font-bold">
+                    <span>一次X線透過率 Tp</span>
+                    <span id="sim-tp-grid-val" class="font-mono text-teal-700">0.70</span>
+                  </div>
+                  <input id="sim-tp-grid" type="range" min="0.40" max="0.90" step="0.05" value="0.70" oninput="updateGridSim()" class="w-full accent-teal-600">
+                </div>
+                <div>
+                  <div class="flex justify-between font-bold">
+                    <span>散乱X線透過率 Ts</span>
+                    <span id="sim-ts-grid-val" class="font-mono text-rose-700">0.10</span>
+                  </div>
+                  <input id="sim-ts-grid" type="range" min="0.02" max="0.30" step="0.02" value="0.10" oninput="updateGridSim()" class="w-full accent-rose-600">
+                </div>
+                <div>
+                  <div class="flex justify-between font-bold">
+                    <span>入射X線の散乱線含有率</span>
+                    <span id="sim-sf-val" class="font-mono text-slate-700">50 %</span>
+                  </div>
+                  <input id="sim-sf" type="range" min="20" max="80" step="10" value="50" oninput="updateGridSim()" class="w-full accent-slate-600">
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white p-2.5 rounded-xl border border-sky-200 grid grid-cols-2 gap-1.5 text-center text-xs">
+              <div class="p-1.5 bg-slate-50 rounded">
+                <span class="text-[10px] text-slate-500 block">露出倍数 B=1/Tt</span>
+                <span id="sim-grid-b" class="font-mono font-bold text-rose-600 text-sm">2.50</span>
+              </div>
+              <div class="p-1.5 bg-slate-50 rounded">
+                <span class="text-[10px] text-slate-500 block">選択度 Σ=Tp/Ts</span>
+                <span id="sim-grid-sigma" class="font-mono font-bold text-teal-700 text-sm">7.00</span>
+              </div>
+              <div class="p-1.5 bg-slate-50 rounded">
+                <span class="text-[10px] text-slate-500 block">コントラスト改善 K</span>
+                <span id="sim-grid-k" class="font-mono font-bold text-sky-700 text-sm">1.75</span>
+              </div>
+              <div class="p-1.5 bg-slate-50 rounded">
+                <span class="text-[10px] text-slate-500 block">イメージ改善 Q</span>
+                <span id="sim-grid-q" class="font-mono font-bold text-indigo-700 text-sm">1.23</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- シミュレーター3：変圧器 一次電流計算 -->
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="inline-block px-2 py-0.5 bg-indigo-100 text-indigo-800 text-[11px] font-bold rounded mb-1">計算ツール ③</span>
+              <h3 class="font-bold text-navy-900 text-sm sm:text-base">高電圧装置 一次電流 I₁ 計算</h3>
+              <p class="text-xs text-slate-500 mb-2">波形別の実効値換算を自動実行</p>
+
+              <div class="space-y-2 text-xs">
+                <div>
+                  <label class="font-bold block mb-0.5">装置波形タイプ</label>
+                  <select id="sim-wave" onchange="updateTransformerSim()" class="w-full p-1.5 rounded-lg border border-slate-300 bg-white font-bold text-navy-900">
+                    <option value="1peak" selected>単相1ピーク形 (V×0.5, I×π/2)</option>
+                    <option value="2peak">単相2ピーク形 (V/√2, I×π/2√2)</option>
+                    <option value="3phase6">三相6ピーク形 (V×0.956, I×1)</option>
+                    <option value="inverter">インバータ・三相12ピーク (V×1, I×1)</option>
+                  </select>
+                </div>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <div>
+                    <label class="text-[10px] font-bold block">一次V₁ [V]</label>
+                    <input id="sim-v1" type="number" value="200" step="10" oninput="updateTransformerSim()" class="w-full p-1.5 rounded border border-slate-300 bg-white font-mono">
+                  </div>
+                  <div>
+                    <label class="text-[10px] font-bold block">管電圧 [kV]</label>
+                    <input id="sim-kv" type="number" value="120" step="5" oninput="updateTransformerSim()" class="w-full p-1.5 rounded border border-slate-300 bg-white font-mono">
+                  </div>
+                  <div>
+                    <label class="text-[10px] font-bold block">管電流 [mA]</label>
+                    <input id="sim-ma" type="number" value="200" step="10" oninput="updateTransformerSim()" class="w-full p-1.5 rounded border border-slate-300 bg-white font-mono">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white p-3 rounded-xl border border-indigo-200 text-center">
+              <p class="text-[11px] text-slate-500">一次電流 I₁（実効値）</p>
+              <p id="sim-i1-res" class="text-2xl font-mono font-extrabold text-indigo-700 my-0.5">94.2 A</p>
+              <p id="sim-i1-detail" class="text-[11px] font-mono text-slate-600">V₂=60000V, I₂=0.314A</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- モード2: 問題アプリ（国家試験過去問＆総論5択演習）                      -->
+  <!-- ===================================================================== -->
+  <main id="view-quiz" class="hidden flex-1 max-w-4xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 fade-in">
+
+    <!-- 成績＆進捗ダッシュボード -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="bg-navy-900 text-white px-3 py-1.5 rounded-xl text-center">
+            <span class="text-[10px] text-teal-300 block">進捗</span>
+            <span id="stat-progress" class="font-mono font-bold text-sm">1 / 36</span>
+          </div>
+          <div class="bg-teal-50 border border-teal-200 text-teal-900 px-3 py-1.5 rounded-xl text-center">
+            <span class="text-[10px] text-teal-700 block">正答数</span>
+            <span id="stat-correct" class="font-mono font-bold text-sm">0 問</span>
+          </div>
+          <div class="bg-sky-50 border border-sky-200 text-sky-900 px-3 py-1.5 rounded-xl text-center">
+            <span class="text-[10px] text-sky-700 block">正答率</span>
+            <span id="stat-rate" class="font-mono font-bold text-sm">0 %</span>
+          </div>
+          <div class="bg-rose-50 border border-rose-200 text-rose-900 px-3 py-1.5 rounded-xl text-center">
+            <span class="text-[10px] text-rose-700 block">苦手登録</span>
+            <span id="stat-weak" class="font-mono font-bold text-sm">0 問</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 ml-auto">
+          <button onclick="toggleQuestionMap()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+            📋 問題一覧
+          </button>
+          <button onclick="openResetConfirm()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-rose-100 hover:text-rose-700 text-slate-600 transition">
+            リセット
+          </button>
+        </div>
+      </div>
+
+      <!-- プログレスバー -->
+      <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+        <div id="quiz-progress-bar" class="h-full bg-gradient-to-r from-teal-500 to-sky-500 transition-all duration-300" style="width: 3%;"></div>
+      </div>
+
+      <!-- カテゴリーフィルタ＆シャッフル -->
+      <div class="flex flex-wrap items-center justify-between gap-2 mt-3 pt-3 border-t border-slate-100">
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1">
+          <button onclick="setQuizCategory('all')" data-qcat="all" class="qcat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 text-white transition">
+            全問題
+          </button>
+          <button onclick="setQuizCategory('X線管・高電圧')" data-qcat="X線管・高電圧" class="qcat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            X線管・高電圧
+          </button>
+          <button onclick="setQuizCategory('グリッド・AEC')" data-qcat="グリッド・AEC" class="qcat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            グリッド・AEC
+          </button>
+          <button onclick="setQuizCategory('CR・FPD・I.I.・画像機器')" data-qcat="CR・FPD・I.I.・画像機器" class="qcat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            CR・FPD・I.I.・画像機器
+          </button>
+          <button onclick="setQuizCategory('物理・計測・線量')" data-qcat="物理・計測・線量" class="qcat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            物理・計測・線量
+          </button>
+          <button onclick="setQuizCategory('weak')" data-qcat="weak" class="qcat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 transition">
+            🔥 苦手問題のみ
+          </button>
+        </div>
+
+        <button id="btn-shuffle" onclick="shuffleQuestions()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100 transition shrink-0">
+          🔀 シャッフル出題
+        </button>
+      </div>
+    </div>
+
+    <!-- 問題一覧ドロワー（開閉式） -->
+    <div id="question-map-panel" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-4 fade-in">
+      <div class="flex items-center justify-between mb-2.5">
+        <h3 class="text-xs font-bold text-slate-700">問題番号ジャンプ（緑＝正解、赤＝不正解、灰＝未解答）</h3>
+        <button onclick="toggleQuestionMap()" class="text-xs text-slate-500 hover:text-slate-800 font-bold">✕ 閉じる</button>
+      </div>
+      <div id="question-map-grid" class="grid grid-cols-6 sm:grid-cols-10 md:grid-cols-12 gap-1.5"></div>
+    </div>
+
+    <!-- 苦手問題ゼロ時のメッセージ -->
+    <div id="empty-weak-box" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-8 text-center space-y-3">
+      <div class="text-4xl">🎉</div>
+      <h3 class="text-lg font-extrabold text-navy-900">現在、苦手登録されている問題はありません！</h3>
+      <p class="text-sm text-slate-600">素晴らしい調子です！他のカテゴリーから新しい問題に挑戦しましょう。</p>
+      <button onclick="setQuizCategory('all')" class="px-5 py-2.5 rounded-xl bg-teal-600 text-white font-bold text-sm hover:bg-teal-500 transition">
+        全問題に戻る
+      </button>
+    </div>
+
+    <!-- メインクイズカード -->
+    <div id="quiz-card" class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+      <!-- 問題メタ情報バー -->
+      <div class="bg-navy-900 text-white px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span id="q-number-badge" class="px-2.5 py-0.5 bg-teal-500 text-navy-950 font-mono font-extrabold text-xs rounded-md">Q.1</span>
+          <span id="q-source-badge" class="text-xs font-bold text-slate-300">第76回 診療画像機器学 午前5</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="q-cat-badge" class="px-2.5 py-0.5 bg-slate-800 border border-slate-700 text-teal-300 text-xs font-bold rounded-full">
+            X線管・高電圧
+          </span>
+          <button id="btn-toggle-weak-manual" onclick="toggleCurrentWeak()" title="苦手リストに追加/解除"
+            class="px-2.5 py-0.5 rounded-full text-xs font-bold border transition bg-slate-800 border-slate-600 text-slate-300 hover:border-rose-400">
+            ☆ 苦手マーク
+          </button>
+        </div>
+      </div>
+
+      <div class="p-4 sm:p-6 space-y-5">
+        <!-- 問題文エリア -->
+        <div>
+          <div id="q-multi-notice" class="hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-amber-100 text-amber-900 border border-amber-300 text-xs font-extrabold mb-2.5">
+            ⚠️ 複数選択問題：正解を「2つ」選んで回答ボタンを押してください
+          </div>
+          <p id="q-text" class="text-base sm:text-lg font-bold text-navy-900 leading-relaxed whitespace-pre-line"></p>
+        </div>
+
+        <!-- 図解エリア（図がある問題のみ表示） -->
+        <div id="q-diagram-container" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-4 flex justify-center"></div>
+
+        <!-- 選択肢リスト -->
+        <div id="q-options" class="space-y-2.5"></div>
+
+        <!-- 複数選択時の確定ボタン -->
+        <div id="q-submit-area" class="hidden pt-1">
+          <button id="btn-submit-multi" onclick="submitMultiChoice()"
+            class="w-full py-3.5 rounded-xl bg-navy-900 hover:bg-slate-800 text-white font-extrabold text-sm sm:text-base shadow transition disabled:opacity-40" disabled>
+            選択した2つで回答を確定する
+          </button>
+        </div>
+
+        <!-- 解答後の解説ボックス -->
+        <div id="q-explanation-box" class="hidden rounded-2xl border-2 p-4 sm:p-5 space-y-3 fade-in">
+          <div class="flex items-center justify-between gap-2">
+            <div id="q-result-title" class="text-lg sm:text-xl font-black flex items-center gap-2"></div>
+            <span id="q-correct-answer-text" class="font-mono text-xs sm:text-sm font-bold px-3 py-1 rounded-lg bg-white border"></span>
+          </div>
+
+          <div class="bg-white/90 rounded-xl p-3.5 border border-slate-200/80 space-y-2">
+            <h4 class="text-xs font-extrabold text-teal-800 uppercase tracking-wider">【詳しい解説】</h4>
+            <p id="q-explanation-text" class="text-xs sm:text-sm text-slate-800 leading-relaxed whitespace-pre-line"></p>
+          </div>
+
+          <div class="bg-sky-50/90 rounded-xl p-3.5 border border-sky-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div class="space-y-0.5">
+              <span class="text-[11px] font-extrabold text-sky-800 block">📌 関連する総論ノートポイント</span>
+              <p id="q-note-point" class="text-xs text-slate-700 font-medium"></p>
+            </div>
+            <button id="btn-goto-note" class="shrink-0 px-3 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition">
+              📖 ノートで確認
+            </button>
+          </div>
+        </div>
+
+        <!-- 前へ / 次へ ナビゲーション -->
+        <div class="flex items-center justify-between gap-3 pt-3 border-t border-slate-100">
+          <button id="btn-prev-q" onclick="prevQuestion()"
+            class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition disabled:opacity-40">
+            ← 前の問題
+          </button>
+          <button id="btn-next-q" onclick="nextQuestion()"
+            class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs sm:text-sm shadow transition">
+            次の問題へ →
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- リセット確認カスタムモーダル（alert/confirm不使用） -->
+  <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 space-y-4">
+      <h3 class="text-base font-extrabold text-navy-900">学習履歴をリセットしますか？</h3>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+        これまでの正答数・解答履歴・苦手登録リストがすべて初期化されます。
+      </p>
+      <div class="flex items-center justify-end gap-2">
+        <button onclick="closeResetConfirm()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700">
+          キャンセル
+        </button>
+        <button onclick="executeReset()" class="px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white">
+          リセットする
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <footer class="bg-white border-t border-slate-200 py-4 px-4 text-center text-xs text-slate-500 mt-8">
+    診療放射線技師 国家試験対策マスター（総論ノート要点 ＆ 第72回〜第76回過去問演習）
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- JavaScript ロジック                                                    -->
+  <!-- ===================================================================== -->
+  <script>
+    // =========================================================================
+    // 1. 問題データベース（添付PDF「総論出たやつ」＆ 第72〜76回国家試験過去問）
+    // =========================================================================
+    const QUESTIONS_DB = [
+      // --- X線管・高電圧 ---
+      {
+        id: 1,
+        source: "第76回 診療画像機器学 午前5",
+        category: "X線管・高電圧",
+        noteChapter: "chap1",
+        multi: false,
+        question: "回転陽極X線管で陽極回転数を2.5倍、焦点軌道直径を1.2倍にしたとき、0.1秒以下の短時間許容負荷の倍数で最も近いのはどれか。",
+        options: ["1.4", "1.7", "2.0", "2.4", "3.0"],
+        answer: [1], // 0-indexed -> 2番目 "1.7"
+        explanation: "短時間許容負荷 W は、陽極回転速度 N と焦点軌道直径 D のそれぞれの平方根（√N, √D）に比例します。\nよって倍率は √(2.5 × 1.2) = √3.0 ≒ 1.73 となり、最も近いのは 1.7 です。",
+        notePoint: "短時間許容負荷の公式：W = (l / sinθ) × √B × √(D・N)"
+      },
+      {
+        id: 2,
+        source: "総論ノート 計算演習（第2章）",
+        category: "X線管・高電圧",
+        noteChapter: "chap2",
+        multi: false,
+        question: "無負荷時において一次電圧200Vで管電圧120kVを発生する単相1ピーク形X線高電圧装置がある。この装置で管電流200mAを通電したときの一次電流 [A] に最も近いのはどれか。\nただし、π = 3.14 とする。",
+        options: ["47.1", "60.0", "66.6", "94.2", "120.0"],
+        answer: [3], // 94.2
+        explanation: "単相1ピーク形（半波整流）では、二次電圧の実効値 V₂ = ピーク値 × (1/2) = 120,000 × 0.5 = 60,000 V。\n二次電流の実効値 I₂ = 平均値 × (π/2) = 0.2 × (3.14/2) = 0.314 A。\n変圧器の電力保存 V₁ × I₁ = V₂ × I₂ より、I₁ = (60,000 × 0.314) / 200 = 94.2 A となります。",
+        notePoint: "単相1ピークの実効値換算：V₂ = ピーク値 × 1/2、I₂ = 平均値 × π/2"
+      },
+      {
+        id: 3,
+        source: "総論ノート 図解演習（第1章）",
+        category: "X線管・高電圧",
+        noteChapter: "chap1",
+        multi: false,
+        question: "図に示す照射野限定器（X線可動絞り）の構造において、A・B・Cの羽根とDの付加フィルタの組合せで正しいのはどれか。",
+        diagram: `
+          <svg viewBox="0 0 300 200" class="w-full max-w-[280px] h-auto">
+            <circle cx="150" cy="16" r="6" fill="#dc2626"/>
+            <text x="162" y="20" font-size="11" font-weight="bold" fill="#0f172a">X線管焦点</text>
+            <polygon points="150,16 85,185 215,185" fill="#fee2e2" opacity="0.6"/>
+            <line x1="150" y1="16" x2="90" y2="185" stroke="#dc2626" stroke-width="1.5"/>
+            <line x1="150" y1="16" x2="210" y2="185" stroke="#dc2626" stroke-width="1.5"/>
+            <path d="M110,38 L118,58 L98,58" fill="none" stroke="#1e293b" stroke-width="3.5"/>
+            <text x="200" y="52" font-size="12" font-weight="bold" fill="#0d9488">← A（焦点側）</text>
+            <rect x="118" y="65" width="64" height="6" fill="#0284c7"/>
+            <text x="18" y="72" font-size="11" font-weight="bold" fill="#0369a1">D（Al, Cu）→</text>
+            <line x1="92" y1="78" x2="122" y2="78" stroke="#334155" stroke-width="3.5"/>
+            <line x1="178" y1="78" x2="208" y2="78" stroke="#334155" stroke-width="3.5"/>
+            <text x="212" y="82" font-size="12" font-weight="bold" fill="#0d9488">← B（中間）</text>
+            <circle cx="62" cy="115" r="11" fill="#fef08a" stroke="#eab308" stroke-width="2"/>
+            <line x1="120" y1="95" x2="176" y2="136" stroke="#64748b" stroke-width="2.5"/>
+            <path d="M100,148 L92,168 L72,168" fill="none" stroke="#1e293b" stroke-width="3.5"/>
+            <path d="M200,148 L208,168 L228,168" fill="none" stroke="#1e293b" stroke-width="3.5"/>
+            <text x="10" y="168" font-size="12" font-weight="bold" fill="#0d9488">C（患者側）→</text>
+          </svg>
+        `,
+        options: [
+          "A：上羽根（焦点外X線低減） ― B：下羽根（照射野制限） ― C：奥羽根（散乱線低減）",
+          "A：奥羽根（焦点外X線低減） ― B：下羽根（散乱線・漏れ線量低減） ― C：上羽根（X線照射野の制限）",
+          "A：下羽根（散乱線低減） ― B：奥羽根（焦点外X線低減） ― C：上羽根（照射野制限）",
+          "A：奥羽根（照射野制限） ― B：上羽根（焦点外X線低減） ― C：下羽根（漏れ線量低減）",
+          "A：上羽根（散乱線低減） ― B：奥羽根（照射野制限） ― C：下羽根（焦点外X線低減）"
+        ],
+        answer: [1],
+        explanation: "X線可動絞りでは、X線管焦点に最も近い「奥羽根」が焦点外X線を低減し、中間の「下羽根」が散乱線・漏れ線量を低減、患者側に最も近い「上羽根」がX線照射野の制限を行います。また、Dの付加フィルタ（Al, Cu）は低エネルギーX線を吸収し被ばく線量を減少させます。",
+        notePoint: "奥羽根＝焦点外X線低減、下羽根＝散乱線・漏れ線量低減、上羽根＝X線照射野制限"
+      },
+      {
+        id: 4,
+        source: "第74回 診療画像機器学 午前5",
+        category: "X線管・高電圧",
+        noteChapter: "chap1",
+        multi: true,
+        question: "焦点外X線で正しいのはどれか。2つ選べ。",
+        options: [
+          "1. 陽極の全体から発生する。",
+          "2. 画像のコントラストを低下させる。",
+          "3. 線質は焦点近傍ほど光子のエネルギーが高い。",
+          "4. 集束電極で集束されなかった電子のため生じる。",
+          "5. 発生する量は回転陽極よりも固定陽極の方が多い。"
+        ],
+        answer: [0, 1], // 1と2
+        explanation: "焦点外X線は、実焦点で跳ね返った二次電子が焦点以外の陽極ターゲット全体に当たって発生するため、画像のボケやコントラスト低下の原因となります（1と2が正解）。\n・3：線質は焦点近傍ほど軟質（低エネルギー）で、離れるほど硬質になります。\n・4：集束されなかった電子ではなく「ターゲットからの二次電子」が主因です。\n・5：回転陽極の方がターゲット面積が大きく焦点外X線が多くなります。",
+        notePoint: "焦点外X線：二次電子により発生、焦点近傍で多く軟質、回転陽極の方が発生が多い。"
+      },
+      {
+        id: 5,
+        source: "第74回 診療画像機器学 午後5",
+        category: "X線管・高電圧",
+        noteChapter: "chap1",
+        multi: false,
+        question: "X線管装置で誤っているのはどれか。",
+        options: [
+          "1. X線強度はターゲット角度で変化する。",
+          "2. 管電流は電極間距離の2乗に反比例する。",
+          "3. 管電圧波形のリプル百分率は短時間許容負荷に影響する。",
+          "4. 実効焦点とは実焦点の基準面への垂直投影したものをいう。",
+          "5. ブルーミング効果とは管電圧によって焦点寸法が変化する現象をいう。"
+        ],
+        answer: [4], // 5が誤り
+        explanation: "ブルーミング効果とは「管電流」が大きい（電子密度が高い）ときに熱電子間のクーロン斥力で反発し、実効焦点が大きくなる現象です（管電圧ではなく管電流が主因で、低電圧・高電流で顕著になります）。よって5が誤りです。",
+        notePoint: "ブルーミング効果：管電流が大きいとクーロン斥力で実効焦点が大きくなる現象。"
+      },
+      {
+        id: 6,
+        source: "第74回 診療画像機器学 午後6",
+        category: "X線管・高電圧",
+        noteChapter: "chap2",
+        multi: false,
+        question: "インバータ式X線高電圧装置で正しいのはどれか。",
+        options: [
+          "1. インバータ周波数が高いほど電力変換効率は高い。",
+          "2. 管電圧のリプルは高電圧ケーブルが長いほど小さい。",
+          "3. インバータ周波数が高いほど高電圧変圧器の鉄損が減少する。",
+          "4. 共振形装置はチョッパのパルス幅を変化させて管電圧の調整を行う。",
+          "5. 方形波形装置は共振形装置よりもスイッチング時の電力損失が小さい。"
+        ],
+        answer: [1], // 2が正解
+        explanation: "高電圧ケーブルが長いほどケーブルの静電容量（平滑コンデンサの役割）が大きくなるため、管電圧リプル百分率は小さくなります（2が正解）。\n・1,3：周波数が高いほど鉄損（渦電流損∝f²、ヒステリシス損∝f）が増大し、変換効率は低下します。\n・4：チョッパのパルス幅で調整するのは非共振（方形波）形です。\n・5：スイッチング電力損失は共振形の方が小さいです。",
+        notePoint: "高電圧ケーブルが長いほどリプル百分率は低減。共振形は周波数・位相制御で損失小。"
+      },
+      {
+        id: 7,
+        source: "第73回 診療画像機器学 午前6",
+        category: "X線管・高電圧",
+        noteChapter: "chap1",
+        multi: true,
+        question: "X線管の管電流で正しいのはどれか。2つ選べ。",
+        options: [
+          "1. 小焦点ほど空間電荷は多くなる。",
+          "2. 空間電荷電流は管電圧の2乗に比例する。",
+          "3. 空間電荷制限領域の管電流は陰極温度に関係しない。",
+          "4. エミッション特性とは管電圧とフィラメント電流の関係をいう。",
+          "5. 空間電荷制限領域では管電圧が低いほど大きな電流を選択できる。"
+        ],
+        answer: [0, 2], // 1と3（厳密には3/2乗だが国試正答は1,3）
+        explanation: "小焦点ほど電子ビームが絞られ電子通路が狭くなるため空間電荷が増加し、空間電荷制限領域で動作しやすくなります（1が正解）。また、空間電荷制限領域ではフィラメント温度（陰極温度）を上げても管電流は増えず、管電圧によって制限されます（3が正解）。\n※2：厳密にはChild-Langmuirの法則により管電圧の「3/2乗」に比例します。",
+        notePoint: "空間電荷領域：管電流は管電圧の3/2乗に比例、小焦点ほど空間電荷増加、飽和領域はIfで決定。"
+      },
+      {
+        id: 8,
+        source: "第73回 診療画像機器学 午前7",
+        category: "X線管・高電圧",
+        noteChapter: "chap2",
+        multi: false,
+        question: "インバータ式X線装置のインバータ周波数を高くしたとき、誤っているのはどれか。",
+        options: [
+          "1. 誘起起電力が高くなる。",
+          "2. 高電圧変圧器が小型化できる。",
+          "3. 高電圧変圧器の鉄損が小さくなる。",
+          "4. 管電圧のリプル百分率が小さくなる。",
+          "5. 電磁エネルギーが発生しやすくなる。"
+        ],
+        answer: [2], // 3が誤り
+        explanation: "インバータ周波数を高くすると、変圧器の鉄損（ヒステリシス損は周波数に比例、渦電流損は周波数の2乗に比例）は「大きく」なります。よって3が誤りです。",
+        notePoint: "高周波化の欠点：鉄損増大による効率低下、小型化による絶縁低下、ノイズ増加。"
+      },
+      {
+        id: 9,
+        source: "第72回 診療画像機器学 午後7",
+        category: "X線管・高電圧",
+        noteChapter: "chap1",
+        multi: false,
+        question: "X線管装置について正しいのはどれか。",
+        options: [
+          "1. 実効焦点面積は実焦点面積より大きい。",
+          "2. 長時間許容負荷は焦点面の温度で制限される。",
+          "3. 焦点外X線の線質は焦点近傍で最も硬質である。",
+          "4. 実焦点の大きさは低電圧で大電流ほど小さくなる。",
+          "5. X線強度分布は陽極側に比べて陰極側の方が大きい。"
+        ],
+        answer: [4], // 5が正解
+        explanation: "ヒール効果により、陽極側ではターゲット自身でX線が吸収されるため、X線強度分布は陰極側の方が大きくなります（5が正解）。\n・1：実効焦点は実焦点の投影なので小さくなります。\n・2：焦点面の温度で制限されるのは「短時間許容負荷」です（長時間は陽極全体の蓄熱容量）。",
+        notePoint: "ヒール効果：陰極側でX線強度大、陽極側で強度小（線質硬化）。"
+      },
+      {
+        id: 10,
+        source: "第72回 診療画像機器学 午前12",
+        category: "X線管・高電圧",
+        noteChapter: "chap1",
+        multi: false,
+        question: "短時間負荷が100kV、320mAのとき、X線管入力が30.4kWであった。管電圧のリプル百分率 [%] に最も近いのはどれか。",
+        options: ["4", "8", "12", "30", "40"],
+        answer: [2], // 12%
+        explanation: "公称最大電力（X線管入力）P = f × V_p × I_m より、係数 f = 30.4 kW / (100 kV × 0.32 A) = 30.4 / 32.0 = 0.95。\n管電圧リプル百分率 10% 以下では f = 0.95〜0.96 ですが、リプル百分率が 12% 程度（三相6ピーク相当、理論リプル13.4%）のとき f ≒ 0.95 となります。選択肢中では 12% が最も適切です（第75回午前8の 100kV×800mA×0.95 = 76.0kW と同じ係数関係です）。",
+        notePoint: "インバータ式（リプル小）は f ≒ 0.96〜1.00、リプル12%程度では f ≒ 0.95。"
+      },
+
+      // --- グリッド・AEC ---
+      {
+        id: 11,
+        source: "第76回 診療画像機器学 午前9",
+        category: "グリッド・AEC",
+        noteChapter: "chap3",
+        multi: false,
+        question: "散乱線除去用グリッドで正しいのはどれか。",
+        options: [
+          "1. グリッド露出係数は一次X線透過率の逆数で表される。",
+          "2. 同一グリッドにおいては管電圧が高いほど選択度は大きい。",
+          "3. グリッド密度はグリッド中心部の1mm当たりの鉛はくの数で表す。",
+          "4. 同一グリッドにおいては管電圧が高いほどコントラスト改善比は大きい。",
+          "5. グリッド密度が同じであればグリッド比が大きいほどグリッド露出係数は大きい。"
+        ],
+        answer: [4], // 5が正解
+        explanation: "グリッド比が大きくなるほど散乱線除去能が高まり、より多くの線量が必要になるためグリッド露出係数（露出倍数 B = 1/Tt）は大きくなります（5が正解）。\n・1：露出係数は「全X線透過率 Tt」の逆数です。\n・2,4：管電圧が高いほど選択度・コントラスト改善比は小さくなります。\n・3：1mmではなく「1cm」当たりです。",
+        notePoint: "露出倍数 B = 1/Tt。グリッド比大で B・Σ・K は増大、管電圧高で減少。"
+      },
+      {
+        id: 12,
+        source: "第75回 診療画像機器学 午後5",
+        category: "グリッド・AEC",
+        noteChapter: "chap3",
+        multi: false,
+        question: "散乱線除去グリッドの特性評価項目と式の組合せで正しいのはどれか。\nただし、散乱線を吸収する箔の間隔をD、厚さをd、高さをh、全X線透過率をTt、一次X線透過率をTp、散乱X線透過率をTsとする。",
+        options: [
+          "1. 選択度 ―― Ts / Tt",
+          "2. 露出倍数 ―― 1 / Tt",
+          "3. グリッド比 ―― h / d",
+          "4. グリッド密度 ―― h / (D + d)",
+          "5. コントラスト改善度 ―― Tp / Ts"
+        ],
+        answer: [1], // 2が正解
+        explanation: "露出倍数（グリッド露出係数 B）は全X線透過率 Tt の逆数「1 / Tt」です（2が正解）。\n・1：選択度 Σ = Tp / Ts\n・3：グリッド比 r = h / D\n・4：グリッド密度 N = 1 / (D + d)\n・5：コントラスト改善比 K = Tp / Tt",
+        notePoint: "r = h/D, N = 1/(D+d), B = 1/Tt, Σ = Tp/Ts, K = Tp/Tt, Q = Tp²/Tt"
+      },
+      {
+        id: 13,
+        source: "第73回 診療画像機器学 午後8",
+        category: "グリッド・AEC",
+        noteChapter: "chap3",
+        multi: false,
+        question: "散乱線除去グリッドについて正しいのはどれか。",
+        options: [
+          "1. 一次放射線透過率は選択度に反比例する。",
+          "2. グリッド比が高くなると露出倍数は小さくなる。",
+          "3. グリッド比が高くなると被ばく線量が小さくなる。",
+          "4. 一次放射線透過率の2乗はイメージ改善係数に比例する。",
+          "5. 一次放射線透過率の2乗はコントラスト改善比に比例する。"
+        ],
+        answer: [3], // 4が正解
+        explanation: "イメージ改善係数 Q は「Q = Tp² / Tt」で定義されるため、一次放射線透過率 Tp の2乗に比例します（4が正解）。",
+        notePoint: "イメージ改善係数 Q = (一次X線透過率)² / 全X線透過率 = Tp² / Tt"
+      },
+      {
+        id: 14,
+        source: "第76回 診療画像機器学 午後5",
+        category: "グリッド・AEC",
+        noteChapter: "chap3",
+        multi: false,
+        question: "始業点検時において自動露出制御機構（AEC）を用いたX線撮影でmAs値が通常よりも大きい値となった。考えられる原因はどれか。\nただし、他の条件は同一とする。",
+        options: [
+          "1. 管電圧を高くした。",
+          "2. 照射野を狭くした。",
+          "3. 焦点検出器間距離を短くした。",
+          "4. バックアップ時間を大きくした。",
+          "5. 厚さの薄いファントムを使用した。"
+        ],
+        answer: [1], // 2が正解
+        explanation: "照射野を狭くすると被写体から発生する散乱線が減少するため、AEC検出器に到達するX線量が減り、適正濃度に達するまでの照射時間（mAs値）が長くなります（2が正解）。1,3,5はいずれも検出器への到達線量が増えるためmAs値は小さくなります。",
+        notePoint: "照射野を狭くする → 散乱線減少 → 検出器到達線量減少 → AECのmAs値増加。"
+      },
+      {
+        id: 15,
+        source: "第72回 診療画像機器学 午後14",
+        category: "グリッド・AEC",
+        noteChapter: "chap3",
+        multi: false,
+        question: "X線自動露出制御装置（ホトタイマ）を用いた撮影で受像器入射線量が低下するのはどれか。",
+        options: [
+          "1. 撮影時間の短縮",
+          "2. 被写体厚の増加",
+          "3. 後面検出方式における管電圧の低下",
+          "4. 後面検出方式における管電流の増大",
+          "5. 前面検出方式における管電圧の上昇"
+        ],
+        answer: [4], // 5が正解（または管電圧特性より前面採光は管電圧上昇で濃度低下傾向）
+        explanation: "管電圧特性において、前面採光方式（前面検出方式）は検出器がカセッテの前にあるため、管電圧が上昇すると検出器の感度特性により相対的に早く遮断信号が出て受像器入射線量（写真濃度）が低下します（総論ノートp.42の管電圧特性グラフ参照）。",
+        notePoint: "管電圧特性：低管電圧域で差が大きく、前面採光は管電圧上昇で濃度が下がる方向へ変化。"
+      },
+
+      // --- CR・FPD・I.I.・画像機器 ---
+      {
+        id: 16,
+        source: "第76回 診療画像機器学 午後9",
+        category: "CR・FPD・I.I.・画像機器",
+        noteChapter: "chap4",
+        multi: true,
+        question: "FPDで正しいのはどれか。2つ選べ。",
+        options: [
+          "1. 空間分解能は画素サイズに依存する。",
+          "2. 間接変換方式ではa-Seが用いられる。",
+          "3. 直接変換方式では地磁気の影響を受ける。",
+          "4. オフセット補正は均一なX線を照射して行う。",
+          "5. ゲイン補正はX線変換層の感度のばらつきを補正する。"
+        ],
+        answer: [0, 4], // 1と5
+        explanation: "FPDの空間分解能は画素（ピクセル）サイズに依存します（1が正解）。また、ゲイン補正は均一なX線を照射して画素ごとの感度のばらつきを補正します（5が正解）。\n・2：a-Se（アモルファスセレン）は「直接変換方式」です。\n・3：地磁気の影響を受けるのはI.I.（イメージインテンシファイア）です。\n・4：X線を照射せずに行うのが「オフセット補正」です。",
+        notePoint: "直接変換＝a-Se（約150μm）、間接変換＝CsI:Tl/Gd2O2S:Tb＋a-Si。ゲイン補正＝均一X線照射。"
+      },
+      {
+        id: 17,
+        source: "第74回 診療画像機器学 午後7",
+        category: "CR・FPD・I.I.・画像機器",
+        noteChapter: "chap4",
+        multi: false,
+        question: "FPDで正しいのはどれか。",
+        options: [
+          "1. 均一なX線を照射してオフセット補正を行う。",
+          "2. 直接変換方式にはホトダイオードが用いられる。",
+          "3. 間接変換方式ではX線変換部に高圧を印加する。",
+          "4. 画像信号の読み出しはTFTスイッチングで行う。",
+          "5. 間接変換方式では素子間の感度補正は不要である。"
+        ],
+        answer: [3], // 4が正解
+        explanation: "FPDでは直接変換方式・間接変換方式ともに、各画素に蓄積された電荷をTFT（薄膜トランジスタ）スイッチングによって読み出します（4が正解）。",
+        notePoint: "FPDの信号読み出しはTFT（薄膜トランジスタ）スイッチングで行う。"
+      },
+      {
+        id: 18,
+        source: "第74回 診療画像機器学 午前8",
+        category: "CR・FPD・I.I.・画像機器",
+        noteChapter: "chap4",
+        multi: false,
+        question: "CR装置で正しいのはどれか。",
+        options: [
+          "1. ダイナミックレンジはFPDよりも狭い。",
+          "2. 輝尽励起光の波長は400nm程度である。",
+          "3. 乳房撮影用の画素サイズは100μm程度である。",
+          "4. フェーディング現象は輝尽発光量に影響しない。",
+          "5. 両面集光方式は片面集光方式よりも輝尽発光の集光効率が高い。"
+        ],
+        answer: [4], // 5が正解
+        explanation: "IP（イメージングプレート）の両面から輝尽発光を読み取る両面集光方式は、片面集光方式よりも集光効率が高く画質が向上します（5が正解）。\n・2：輝尽励起光（He-Neレーザー）は633nm（赤色光）、輝尽蛍光（発光）が400nm（青紫光）です。\n・3：乳房用CRの画素サイズは50μm程度です。",
+        notePoint: "CR：He-Neレーザー(633nm・赤)で励起 → 400nm(青紫)の輝尽蛍光 → 白色光で消去。"
+      },
+      {
+        id: 19,
+        source: "第73回 診療画像機器学 午後10",
+        category: "CR・FPD・I.I.・画像機器",
+        noteChapter: "chap4",
+        multi: false,
+        question: "CR装置の構成で必要ないのはどれか。",
+        options: [
+          "1. AD変換器",
+          "2. 光電子増倍管",
+          "3. レーザー光源",
+          "4. 蓄積コンデンサ",
+          "5. 輝尽性蛍光プレート"
+        ],
+        answer: [3], // 4が正解
+        explanation: "CR装置は「輝尽性蛍光プレート（IP）」「レーザー光源（He-Ne）」「光電子増倍管（PMT）」「AD変換器」で構成されます。蓄積コンデンサはFPDやコンデンサ式X線装置で用いられるものです。",
+        notePoint: "CRの流れ：IP → He-Neレーザー → 光電子増倍管 → A-D変換 → 画像処理。"
+      },
+      {
+        id: 20,
+        source: "第73回 診療画像機器学 午後7",
+        category: "CR・FPD・I.I.・画像機器",
+        noteChapter: "chap4",
+        multi: false,
+        question: "I.I.（イメージインテンシファイア）について正しいのはどれか。",
+        options: [
+          "1. 視野が狭いほど像は明るい。",
+          "2. 大視野ほど空間周波数特性がよい。",
+          "3. 出力像の輝度は像の拡大率の2乗に反比例する。",
+          "4. 量子検出効率は（I.I.出力像のSN比）÷（入射X線のSN比）で定義される。",
+          "5. 変換係数は入射野中心の空気カーマ率の単位を[μGy/s]、出力像中心の輝度の単位を[cd/m²]とすると100〜300程度となる。"
+        ],
+        answer: [2], // 3が正解
+        explanation: "出力蛍光面の輝度は「（像の縮小率）² × 陽極電圧」、すなわち「（像の拡大率）² に反比例」します（3が正解）。\n・1：視野が狭い（拡大）ほど暗くなります。\n・2：小視野ほど空間周波数特性（空間分解能）がよくなります。",
+        notePoint: "I.I.出力輝度 ∝ (像の縮小率)² × 陽極電圧。小視野＝暗い・歪み小・空間分解能良・被ばく多。"
+      },
+      {
+        id: 21,
+        source: "第75回 診療画像機器学 午前13",
+        category: "CR・FPD・I.I.・画像機器",
+        noteChapter: "chap4",
+        multi: false,
+        question: "DSA（デジタルサブトラクション血管造影）で正しいのはどれか。",
+        options: [
+          "1. 静脈は描出できない。",
+          "2. 体動の影響を受けない。",
+          "3. 撮影中に画像を確認することはできない。",
+          "4. リカーシブフィルタはノイズを低減する。",
+          "5. 血管の輪郭を強調するために低周波数強調フィルタを使用する。"
+        ],
+        answer: [3], // 4が正解
+        explanation: "リカーシブフィルタは時間軸方向に加算平均を行う時間フィルタであり、画像のノイズ（量子モトル）を低減します（ただし動きのボケ＝空間・時間分解能は低下します）。よって4が正解です。",
+        notePoint: "DSA：体動に弱い（リマスキング・ピクセルシフトで補正）、リカーシブフィルタでノイズ低減。"
+      },
+
+      // --- 物理・計測・線量 ---
+      {
+        id: 22,
+        source: "総論ノート 計算演習（第5章）",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "⁹⁹ᵐTcの物理学的半減期が6時間である。体内に投与して代謝による生物学的半減期が3時間であるとき、有効（実効）半減期 [時間] はどれか。",
+        options: ["1.5", "2.0", "3.0", "4.5", "9.0"],
+        answer: [1], // 2.0時間
+        explanation: "有効半減期 Te は 1/Te = 1/Tp + 1/Tb より、Te = (Tp × Tb) / (Tp + Tb) で求めます。\nTe = (6 × 3) / (6 + 3) = 18 / 9 = 2.0 時間となります。",
+        notePoint: "有効半減期：Te = (Tp × Tb) / (Tp + Tb)。必ず Tp, Tb のどちらよりも短くなる。"
+      },
+      {
+        id: 23,
+        source: "第76回 放射線計測学 午前78",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "国際放射線防護委員会（ICRP）2007年勧告で、エネルギーごとに放射線加重係数が変化するのはどれか。",
+        options: ["1. α粒子", "2. 電子", "3. 陽子", "4. 中性子", "5. 重イオン"],
+        answer: [3], // 4. 中性子
+        explanation: "ICRP 2007年勧告の放射線荷重係数 WR は、光子・電子=1、陽子=2、α粒子・重イオン=20 と固定値ですが、中性子のみエネルギーに応じた連続関数（2.5〜21）として与えられます。",
+        notePoint: "放射線荷重係数 WR：光子・電子=1、陽子=2、α粒子・重イオン=20、中性子=エネルギー別(2.5〜21)。"
+      },
+      {
+        id: 24,
+        source: "第76回 放射線計測学 午前79",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "水の吸収線量を Bragg-Gray（ブラッグ・グレイ）の空洞理論で求める式はどれか。\nただし、水中に設置された空洞空気に生じた電荷量をQ、空洞空気の質量をm、空洞空気の吸収線量をD_air、水の質量衝突阻止能を(S_col/ρ)_w、空気の質量衝突阻止能を(S_col/ρ)_airとする。",
+        options: [
+          "1. (Q/m) × [(S_col/ρ)_air / (S_col/ρ)_w]",
+          "2. (m/Q) × [(S_col/ρ)_w / (S_col/ρ)_air]",
+          "3. D_air × [(S_col/ρ)_air / (S_col/ρ)_w]",
+          "4. D_air × [(S_col/ρ)_w / (S_col/ρ)_air]",
+          "5. (Q/m) × D_air × [(S_col/ρ)_air / (S_col/ρ)_w]"
+        ],
+        answer: [3], // 4が正解
+        explanation: "Bragg-Grayの空洞理論では、媒質（水）の吸収線量 D_w は、空洞空気の吸収線量 D_air（= (Q/m)×(W/e)）に、空気に対する水の質量衝突阻止能比 [(S_col/ρ)_w / (S_col/ρ)_air] を掛けて求めます。よって4が正解です。",
+        notePoint: "Bragg-Grayの空洞原理：D_med = D_air × [(S_col/ρ)_med / (S_col/ρ)_air] × P"
+      },
+      {
+        id: 25,
+        source: "第76回 放射線計測学 午前80",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "下図に示す放射線のエネルギーピークの半値幅（FWHM）はどれか。",
+        diagram: `
+          <svg viewBox="0 0 280 185" class="w-full max-w-[270px] h-auto">
+            <line x1="35" y1="160" x2="260" y2="160" stroke="#0f172a" stroke-width="2"/>
+            <line x1="35" y1="15" x2="35" y2="160" stroke="#0f172a" stroke-width="2"/>
+            <text x="15" y="90" font-size="11" font-weight="bold" fill="#0f172a" writing-mode="tb">計数値</text>
+            <text x="125" y="178" font-size="11" font-weight="bold" fill="#0f172a">エネルギー</text>
+            <!-- ガウス曲線 -->
+            <path d="M50,158 Q95,155 115,95 T145,30 T175,95 Q195,155 240,158" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+            <!-- 中心線・半値点線 -->
+            <line x1="145" y1="25" x2="145" y2="160" stroke="#64748b" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="115" y1="30" x2="115" y2="160" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="175" y1="30" x2="175" y2="160" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2"/>
+            <!-- 矢印 a, b, c, d, e -->
+            <line x1="145" y1="22" x2="250" y2="22" stroke="#dc2626" stroke-width="1.5"/>
+            <text x="195" y="18" font-size="11" font-weight="bold" fill="#dc2626">a</text>
+            <line x1="235" y1="30" x2="235" y2="160" stroke="#dc2626" stroke-width="1.5"/>
+            <text x="240" y="95" font-size="11" font-weight="bold" fill="#dc2626">b</text>
+            <line x1="145" y1="45" x2="175" y2="45" stroke="#dc2626" stroke-width="1.5"/>
+            <text x="157" y="42" font-size="11" font-weight="bold" fill="#dc2626">c</text>
+            <line x1="115" y1="95" x2="175" y2="95" stroke="#0d9488" stroke-width="2.5"/>
+            <text x="141" y="90" font-size="12" font-weight="bold" fill="#0d9488">d</text>
+            <line x1="135" y1="95" x2="135" y2="160" stroke="#dc2626" stroke-width="1.5"/>
+            <text x="124" y="132" font-size="11" font-weight="bold" fill="#dc2626">e</text>
+          </svg>
+        `,
+        options: ["1. a", "2. b", "3. c", "4. d", "5. e"],
+        answer: [3], // 4. d
+        explanation: "FWHM（Full Width at Half Maximum：半値全幅）とは、ピーク最大計数値（b）の半分の高さ（e）におけるピーク曲線の全幅（エネルギー幅）を指すため、図の「d」が正解です（cは半値半幅 HWHM）。",
+        notePoint: "FWHM（半値全幅）＝ ピーク高さの1/2におけるエネルギー幅。"
+      },
+      {
+        id: 26,
+        source: "第76回 放射線計測学 午後79",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: true,
+        question: "物理量と単位の組合せで正しいのはどれか。2つ選べ。",
+        options: [
+          "1. カーマ ―― J・kg",
+          "2. 吸収線量 ―― C・kg⁻¹",
+          "3. 照射線量 ―― J・kg⁻¹",
+          "4. 質量阻止能 ―― J・m²・kg⁻¹",
+          "5. 線減弱係数 ―― m⁻¹"
+        ],
+        answer: [3, 4], // 4と5
+        explanation: "質量阻止能（線阻止能 J/m を密度 kg/m³ で割ったもの）の単位は「J・m²・kg⁻¹」、線減弱係数 μ の単位は「m⁻¹」です（4と5が正解）。\n・1：カーマの単位は J・kg⁻¹（Gy）\n・2：吸収線量の単位は J・kg⁻¹（Gy）\n・3：照射線量の単位は C・kg⁻¹",
+        notePoint: "吸収線量・カーマ＝J/kg (Gy)、照射線量＝C/kg、質量阻止能＝J・m²/kg、線減弱係数＝m⁻¹。"
+      },
+      {
+        id: 27,
+        source: "第76回 放射線計測学 午後81",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "潮解性を示す放射線検出器はどれか。",
+        options: [
+          "1. GM計数管",
+          "2. 比例計数管",
+          "3. 半導体検出器",
+          "4. 蛍光ガラス線量計",
+          "5. NaI(Tl)シンチレーション検出器"
+        ],
+        answer: [4], // 5が正解
+        explanation: "NaI(Tl)（タリウム活性化ヨウ化ナトリウム）結晶は空気中の水分を吸収して溶ける「潮解性」を持つため、アルミニウムなどの金属ケースで気密封入されています。",
+        notePoint: "NaI(Tl)シンチレータは潮解性があるため気密封入が必要。"
+      },
+      {
+        id: 28,
+        source: "第75回 放射線計測学 午前80",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "ある放射性試料を計数装置で2分間測定して400カウントが得られた。また、バックグラウンドのみは1分間測定して100カウントであった。\nこの試料の正味の計数率 [cpm] とその標準偏差 [cpm] に最も近いのはどれか。",
+        options: [
+          "1. 100 ± 5",
+          "2. 100 ± 10",
+          "3. 100 ± 14",
+          "4. 200 ± 20",
+          "5. 300 ± 30"
+        ],
+        answer: [2], // 3. 100 ± 14
+        explanation: "試料＋BGの計数率 n_s = 400 / 2 = 200 cpm、BGの計数率 n_b = 100 / 1 = 100 cpm。\n正味の計数率 n = 200 - 100 = 100 cpm。\n標準偏差 σ = √(n_s / t_s + n_b / t_b) = √(200/2 + 100/1) = √(100 + 100) = √200 ≒ 14.14 cpm。\nよって 100 ± 14 が正解です。",
+        notePoint: "正味計数率の標準偏差：σ = √(N_s/t_s² + N_b/t_b²) = √(n_s/t_s + n_b/t_b)"
+      },
+      {
+        id: 29,
+        source: "第73回 放射線計測学 午前78",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "微小容積V内で入射X線（エネルギーE₀）のコンプトン散乱が発生し、初期運動エネルギーT₀の反跳電子とエネルギーE₁の散乱X線が放出された。反跳電子はV外に出た時点で運動エネルギーT₁を持っていた。カーマと吸収線量の組合せで正しいのはどれか（制動放射線は無視する）。",
+        diagram: `
+          <svg viewBox="0 0 280 165" class="w-full max-w-[260px] h-auto">
+            <circle cx="135" cy="85" r="55" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+            <text x="92" y="130" font-size="10" font-weight="bold" fill="#1e293b">微小容積 V</text>
+            <!-- 入射X線 -->
+            <path d="M15,85 Q25,75 35,85 T55,85 T75,85 T95,85 T115,85 T135,85" fill="none" stroke="#0284c7" stroke-width="2"/>
+            <text x="15" y="70" font-size="10" font-weight="bold" fill="#0369a1">入射X線 E₀</text>
+            <!-- 反跳電子 -->
+            <line x1="135" y1="85" x2="195" y2="18" stroke="#dc2626" stroke-width="2"/>
+            <polygon points="195,18 186,21 192,27" fill="#dc2626"/>
+            <text x="112" y="65" font-size="10" font-weight="bold" fill="#dc2626">初期 T₀</text>
+            <text x="178" y="42" font-size="10" font-weight="bold" fill="#dc2626">V外で T₁</text>
+            <!-- 散乱X線 -->
+            <path d="M135,85 Q148,80 155,92 T175,99 T195,106 T215,113 T235,120" fill="none" stroke="#0d9488" stroke-width="2"/>
+            <text x="195" y="135" font-size="10" font-weight="bold" fill="#0f766e">散乱X線 E₁</text>
+          </svg>
+        `,
+        options: [
+          "1. カーマ：E₁ ―― 吸収線量：T₀",
+          "2. カーマ：T₀ ―― 吸収線量：T₀ − T₁",
+          "3. カーマ：T₁ ―― 吸収線量：T₀",
+          "4. カーマ：E₀ − T₁ ―― 吸収線量：E₀ − E₁",
+          "5. カーマ：E₀ − E₁ ―― 吸収線量：T₀ − T₁ − E₁"
+        ],
+        answer: [1], // 2が正解
+        explanation: "カーマは「非荷電粒子（X線）から荷電粒子（反跳電子）に受け渡された初期運動エネルギーの総和」なので T₀ です。\n一方、吸収線量は「微小容積 V 内に実際に付与（吸収）されたエネルギー」なので、電子がV内で失ったエネルギー T₀ − T₁ となります。",
+        notePoint: "カーマ＝荷電粒子に渡した初期エネルギー(T₀)、吸収線量＝実際に物質中に留まったエネルギー(T₀−T₁)。"
+      },
+      {
+        id: 30,
+        source: "第76回 放射線物理学 午前72",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "5MeVの陽子線の水に対する質量阻止能が約80 MeV・cm²・g⁻¹であるとき、10 MeVの重陽子線の水に対する質量阻止能 [MeV・cm²・g⁻¹] に最も近いのはどれか。",
+        options: ["20", "30", "50", "80", "100"],
+        answer: [3], // 4. 80
+        explanation: "重荷電粒子の質量衝突阻止能は「電荷 z² に比例し、速度 v² に反比例」します。\n陽子（z=1, 質量数1）と重陽子（z=1, 質量数2）は電荷が同じ（z=1）で、質量が2倍です。運動エネルギー E = ½mv² が2倍（5MeV → 10MeV）になると速度 v は同じになるため、質量阻止能も陽子線と同じ約 80 MeV・cm²・g⁻¹ になります。",
+        notePoint: "重荷電粒子の質量衝突阻止能 ∝ z² / v²（電荷と速度が同じなら質量阻止能は等しい）。"
+      },
+      {
+        id: 31,
+        source: "第76回 放射線物理学 午後74",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "核融合反応 D + T → ⁴He + n による核反応のQ値 [MeV] に最も近いのはどれか。\nただし、それぞれの粒子の静止質量を D は 2.014 Da、T は 3.016 Da、⁴He は 4.002 Da、n は 1.009 Da とし、1 Da = 930 MeV とする。",
+        options: ["1. -18", "2. -5", "3. 0", "4. 5", "5. 18"],
+        answer: [4], // 5. 18
+        explanation: "反応前の質量合計 = 2.014 + 3.016 = 5.030 Da。\n反応後の質量合計 = 4.002 + 1.009 = 5.011 Da。\n質量欠損 Δm = 5.030 - 5.011 = +0.019 Da。\nよって Q値 = 0.019 × 930 MeV = +17.67 MeV ≒ +18 MeV（発熱反応）となります。",
+        notePoint: "Q値 = (反応前の全質量 − 反応後の全質量) × 930 MeV"
+      },
+      {
+        id: 32,
+        source: "第75回 放射線物理学 午後72",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "75 keVの光子がタングステンのK殻軌道電子との光電効果を起こしたとき放出された光電子のエネルギー [keV] に最も近いのはどれか。\nただし、タングステンのK殻軌道電子の結合エネルギーは69.5 keVとする。",
+        options: ["1. 1.1", "2. 5.5", "3. 69.5", "4. 144.5", "5. 511.0"],
+        answer: [1], // 2. 5.5
+        explanation: "光電効果で放出される光電子の運動エネルギー E_e は、入射光子エネルギー hν から軌道電子の結合エネルギー B_K を差し引いた値になります。\nE_e = 75 − 69.5 = 5.5 keV。",
+        notePoint: "光電子の運動エネルギー = 入射光子エネルギー − 電子の結合エネルギー"
+      },
+      {
+        id: 33,
+        source: "第75回 放射線物理学 午後73",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "超音波の伝播速度が遅い順に並んでいるのはどれか。",
+        options: [
+          "1. 空気 → 骨 → 脂肪 → 筋肉",
+          "2. 空気 → 脂肪 → 筋肉 → 骨",
+          "3. 空気 → 脂肪 → 骨 → 筋肉",
+          "4. 脂肪 → 筋肉 → 骨 → 空気",
+          "5. 脂肪 → 骨 → 空気 → 筋肉"
+        ],
+        answer: [1], // 2が正解
+        explanation: "超音波の伝播速度は、空気（約340 m/s）＜ 脂肪（約1,450 m/s）＜ 筋肉（約1,580 m/s）＜ 骨（約3,500〜4,000 m/s）の順に速くなります。",
+        notePoint: "音速の順：空気(340) ＜ 脂肪(1450) ＜ 水・軟部組織(1500) ＜ 筋肉(1580) ＜ 骨(4000 m/s)"
+      },
+      {
+        id: 34,
+        source: "第73回 放射線物理学 午後72",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "511 keVのγ線がコンプトン散乱するときの散乱角90度の散乱線エネルギー [keV] に最も近いのはどれか。",
+        options: ["1. 128", "2. 170", "3. 256", "4. 341", "5. 511"],
+        answer: [2], // 3. 256
+        explanation: "コンプトン散乱の散乱線エネルギー式 E' = E / [1 + (E/511)(1 - cosθ)] に、E = 511 keV、θ = 90°（cos90° = 0）を代入すると、\nE' = 511 / [1 + 1 × (1 - 0)] = 511 / 2 = 255.5 ≒ 256 keV となります（ちなみに180度後方散乱では 511/3 ≒ 170 keV です）。",
+        notePoint: "511 keV光子のコンプトン散乱：90度散乱＝256 keV、180度後方散乱＝170 keV。"
+      },
+      {
+        id: 35,
+        source: "第73回 放射線物理学 午前74",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "静磁場の磁束密度が1.5 Tのとき、¹H核は63.9 MHzで磁気共鳴を起こす。磁束密度が3.0 Tのときの共鳴周波数 [MHz] はどれか。",
+        options: ["1. 32.0", "2. 63.9", "3. 95.9", "4. 127.8", "5. 191.7"],
+        answer: [3], // 4. 127.8
+        explanation: "ラーモア周波数 f₀ = (γ / 2π) × B₀ より、共鳴周波数は静磁場強度 B₀ に正比例します。\n磁束密度が1.5 Tから3.0 Tへ2倍になるため、共鳴周波数も 63.9 × 2 = 127.8 MHz となります。",
+        notePoint: "ラーモア周波数：f = (γ / 2π) × B₀（静磁場強度 B₀ に比例）。"
+      },
+      {
+        id: 36,
+        source: "第72回 放射線計測学 午前79",
+        category: "物理・計測・線量",
+        noteChapter: "chap5",
+        multi: false,
+        question: "確率分布が平均値 μ、標準偏差 σ の Gauss（ガウス）分布に従う放射線計測において、測定値が μ ± σ に入る確率に最も近いのはどれか。",
+        options: ["1. 34%", "2. 50%", "3. 68%", "4. 75%", "5. 96%"],
+        answer: [2], // 3. 68%
+        explanation: "ガウス分布（正規分布）において、測定値が μ ± 1σ の範囲に入る確率は約 68.3%（68%）、μ ± 2σ では約 95.4%（96%）、μ ± 3σ では約 99.7% です。",
+        notePoint: "ガウス分布の信頼区間：μ±σ ≒ 68%、μ±2σ ≒ 95.4%、μ±3σ ≒ 99.7%。"
+      }
+    ];
+
+    // =========================================================================
+    // 2. アプリ状態管理（localStorage連携）
+    // =========================================================================
+    const STORAGE_KEY = 'rad_tech_exam_state_v1';
+    let appState = {
+      redSheetActive: false,
+      currentChapter: 'all',
+      quizCategory: 'all',
+      filteredIds: QUESTIONS_DB.map(q => q.id),
+      currentIndex: 0,
+      userAnswers: {}, // { [qId]: [selectedIndices] }
+      submitted: {},   // { [qId]: boolean }
+      weakIds: []      // [qId, ...]
+    };
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          appState.userAnswers = parsed.userAnswers || {};
+          appState.submitted = parsed.submitted || {};
+          appState.weakIds = parsed.weakIds || [];
+        }
+      } catch (e) {
+        console.warn('State load skipped:', e);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          userAnswers: appState.userAnswers,
+          submitted: appState.submitted,
+          weakIds: appState.weakIds
+        }));
+      } catch (e) {
+        console.warn('State save skipped:', e);
+      }
+    }
+
+    // =========================================================================
+    // 3. メインモード切替（勉強用アプリ vs 問題アプリ）
+    // =========================================================================
+    function switchMainMode(mode) {
+      const viewStudy = document.getElementById('view-study');
+      const viewQuiz = document.getElementById('view-quiz');
+      const tabStudy = document.getElementById('tab-study');
+      const tabQuiz = document.getElementById('tab-quiz');
+
+      if (mode === 'study') {
+        viewStudy.classList.remove('hidden');
+        viewQuiz.classList.add('hidden');
+        tabStudy.className = "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-teal-600 text-white shadow";
+        tabQuiz.className = "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all text-slate-300 hover:text-white hover:bg-slate-700/60";
+      } else {
+        viewStudy.classList.add('hidden');
+        viewQuiz.classList.remove('hidden');
+        tabQuiz.className = "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-teal-600 text-white shadow";
+        tabStudy.className = "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all text-slate-300 hover:text-white hover:bg-slate-700/60";
+        renderQuiz();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // 4. 勉強用アプリ：赤シート暗記＆章フィルタ＆シミュレーター
+    // =========================================================================
+    function toggleRedSheet() {
+      appState.redSheetActive = !appState.redSheetActive;
+      const body = document.body;
+      const btn = document.getElementById('btn-toggle-redsheet');
+      const label = document.getElementById('redsheet-label');
+      const indicator = document.getElementById('redsheet-indicator');
+      const resetPeeksBtn = document.getElementById('btn-reset-peeks');
+
+      if (appState.redSheetActive) {
+        body.classList.add('red-sheet-active');
+        btn.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-rose-600 text-white border-2 border-rose-700 shadow-md";
+        indicator.className = "w-3 h-3 rounded-full bg-white animate-pulse";
+        label.textContent = "🟥 赤シート：ON（暗記中）";
+        resetPeeksBtn.classList.remove('hidden');
+      } else {
+        body.classList.remove('red-sheet-active');
+        btn.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-rose-50 text-rose-700 border-2 border-rose-300 hover:bg-rose-100 shadow-sm";
+        indicator.className = "w-3 h-3 rounded-full bg-rose-500";
+        label.textContent = "🟥 赤シート：OFF（タップで隠す）";
+        resetPeeksBtn.classList.add('hidden');
+        resetAllPeeks();
+      }
+    }
+
+    function resetAllPeeks() {
+      document.querySelectorAll('.red-sheet-word.peeked, .red-sheet-box.peeked').forEach(el => {
+        el.classList.remove('peeked');
+      });
+    }
+
+    // 個別単語タップでのチラ見イベント委譲
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('.red-sheet-word, .red-sheet-box');
+      if (target && document.body.classList.contains('red-sheet-active')) {
+        target.classList.toggle('peeked');
+      }
+    });
+
+    function filterChapter(chapId) {
+      appState.currentChapter = chapId;
+      document.querySelectorAll('.chap-btn').forEach(btn => {
+        const isTarget = btn.getAttribute('data-chap-btn') === chapId;
+        if (chapId === 'sim' && btn.getAttribute('data-chap-btn') === 'sim') {
+          btn.className = "chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 text-white shadow transition";
+        } else if (isTarget) {
+          btn.className = "chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-navy-900 text-white shadow transition";
+        } else if (btn.getAttribute('data-chap-btn') === 'sim') {
+          btn.className = "chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-50 text-teal-800 border border-teal-200 hover:bg-teal-100 transition";
+        } else {
+          btn.className = "chap-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+        }
+      });
+
+      document.querySelectorAll('.chapter-section').forEach(sec => {
+        if (chapId === 'all' || sec.id === chapId) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+    }
+
+    function jumpToStudyChapter(chapId) {
+      switchMainMode('study');
+      filterChapter('all');
+      setTimeout(() => {
+        const el = document.getElementById(chapId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 60);
+    }
+
+    function jumpToQuizByCat(cat) {
+      switchMainMode('quiz');
+      setQuizCategory(cat);
+    }
+
+    // --- シミュレーター 1：有効半減期 ---
+    function updateHalfLifeSim() {
+      const tp = parseFloat(document.getElementById('sim-tp').value);
+      const tb = parseFloat(document.getElementById('sim-tb').value);
+      document.getElementById('sim-tp-val').textContent = tp.toFixed(1) + ' h';
+      document.getElementById('sim-tb-val').textContent = tb.toFixed(1) + ' h';
+
+      const te = (tp * tb) / (tp + tb);
+      document.getElementById('sim-te-res').textContent = te.toFixed(2) + ' 時間';
+      document.getElementById('sim-te-formula').textContent = `(${tp} × ${tb}) / (${tp} + ${tb}) = ${te.toFixed(2)}`;
+    }
+
+    // --- シミュレーター 2：グリッド物理性能 ---
+    function updateGridSim() {
+      const tp = parseFloat(document.getElementById('sim-tp-grid').value);
+      const ts = parseFloat(document.getElementById('sim-ts-grid').value);
+      const sf = parseFloat(document.getElementById('sim-sf').value) / 100; // 散乱線含有率
+
+      document.getElementById('sim-tp-grid-val').textContent = tp.toFixed(2);
+      document.getElementById('sim-ts-grid-val').textContent = ts.toFixed(2);
+      document.getElementById('sim-sf-val').textContent = Math.round(sf * 100) + ' %';
+
+      // 全X線透過率 Tt = (1 - sf)*Tp + sf*Ts
+      const tt = (1 - sf) * tp + sf * ts;
+      const b = 1 / tt;
+      const sigma = tp / ts;
+      const k = tp / tt;
+      const q = (tp * tp) / tt;
+
+      document.getElementById('sim-grid-b').textContent = b.toFixed(2);
+      document.getElementById('sim-grid-sigma').textContent = sigma.toFixed(2);
+      document.getElementById('sim-grid-k').textContent = k.toFixed(2);
+      document.getElementById('sim-grid-q').textContent = q.toFixed(2);
+    }
+
+    // --- シミュレーター 3：高電圧変圧器 一次電流 ---
+    function updateTransformerSim() {
+      const wave = document.getElementById('sim-wave').value;
+      const v1 = Math.max(1, parseFloat(document.getElementById('sim-v1').value) || 200);
+      const kv = Math.max(1, parseFloat(document.getElementById('sim-kv').value) || 120);
+      const ma = Math.max(1, parseFloat(document.getElementById('sim-ma').value) || 200);
+
+      const vp = kv * 1000;
+      const im = ma / 1000;
+      let v2 = vp;
+      let i2 = im;
+
+      if (wave === '1peak') {
+        v2 = vp * 0.5;
+        i2 = im * (3.14 / 2);
+      } else if (wave === '2peak') {
+        v2 = vp / 1.4142;
+        i2 = im * (3.14 / (2 * 1.4142));
+      } else if (wave === '3phase6') {
+        v2 = vp * 0.956;
+        i2 = im;
+      } else {
+        v2 = vp;
+        i2 = im;
+      }
+
+      const i1 = (v2 * i2) / v1;
+      document.getElementById('sim-i1-res').textContent = i1.toFixed(1) + ' A';
+      document.getElementById('sim-i1-detail').textContent = `V₂=${Math.round(v2)}V, I₂=${i2.toFixed(3)}A`;
+    }
+
+    // =========================================================================
+    // 5. 問題アプリ：フィルタ・解答・採点・苦手管理・問題一覧
+    // =========================================================================
+    function setQuizCategory(cat) {
+      appState.quizCategory = cat;
+      document.querySelectorAll('.qcat-btn').forEach(btn => {
+        const isTarget = btn.getAttribute('data-qcat') === cat;
+        if (cat === 'weak' && btn.getAttribute('data-qcat') === 'weak') {
+          btn.className = "qcat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-600 text-white shadow transition";
+        } else if (isTarget) {
+          btn.className = "qcat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-600 text-white shadow transition";
+        } else if (btn.getAttribute('data-qcat') === 'weak') {
+          btn.className = "qcat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 transition";
+        } else {
+          btn.className = "qcat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+        }
+      });
+
+      if (cat === 'all') {
+        appState.filteredIds = QUESTIONS_DB.map(q => q.id);
+      } else if (cat === 'weak') {
+        appState.filteredIds = QUESTIONS_DB.filter(q => appState.weakIds.includes(q.id)).map(q => q.id);
+      } else {
+        appState.filteredIds = QUESTIONS_DB.filter(q => q.category === cat).map(q => q.id);
+      }
+
+      appState.currentIndex = 0;
+      renderQuiz();
+    }
+
+    function shuffleQuestions() {
+      const arr = [...appState.filteredIds];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      appState.filteredIds = arr;
+      appState.currentIndex = 0;
+      renderQuiz();
+    }
+
+    function updateDashboardStats() {
+      const totalQ = QUESTIONS_DB.length;
+      const submittedIds = Object.keys(appState.submitted).map(Number);
+      let correctCount = 0;
+
+      submittedIds.forEach(id => {
+        const q = QUESTIONS_DB.find(item => item.id === id);
+        if (q && isAnswerCorrect(q, appState.userAnswers[id] || [])) {
+          correctCount++;
+        }
+      });
+
+      const rate = submittedIds.length > 0 ? Math.round((correctCount / submittedIds.length) * 100) : 0;
+      const filteredTotal = appState.filteredIds.length;
+      const currentPos = filteredTotal > 0 ? appState.currentIndex + 1 : 0;
+
+      document.getElementById('stat-progress').textContent = `${currentPos} / ${filteredTotal}`;
+      document.getElementById('stat-correct').textContent = `${correctCount} / ${submittedIds.length} 問`;
+      document.getElementById('stat-rate').textContent = `${rate} %`;
+      document.getElementById('header-rate-mobile').textContent = `${rate}`;
+      document.getElementById('stat-weak').textContent = `${appState.weakIds.length} 問`;
+
+      const pct = filteredTotal > 0 ? Math.round((currentPos / filteredTotal) * 100) : 0;
+      document.getElementById('quiz-progress-bar').style.width = `${pct}%`;
+
+      renderQuestionMap();
+    }
+
+    function isAnswerCorrect(q, selectedArr) {
+      if (!selectedArr || selectedArr.length !== q.answer.length) return false;
+      const sortedSel = [...selectedArr].sort((a, b) => a - b);
+      const sortedAns = [...q.answer].sort((a, b) => a - b);
+      return sortedSel.every((val, idx) => val === sortedAns[idx]);
+    }
+
+    function renderQuiz() {
+      updateDashboardStats();
+
+      const quizCard = document.getElementById('quiz-card');
+      const emptyWeak = document.getElementById('empty-weak-box');
+
+      if (appState.filteredIds.length === 0) {
+        quizCard.classList.add('hidden');
+        emptyWeak.classList.remove('hidden');
+        return;
+      }
+
+      quizCard.classList.remove('hidden');
+      emptyWeak.classList.add('hidden');
+
+      const qId = appState.filteredIds[appState.currentIndex];
+      const q = QUESTIONS_DB.find(item => item.id === qId);
+      const isSubmitted = !!appState.submitted[qId];
+      const selected = appState.userAnswers[qId] || [];
+
+      // ヘッダー情報
+      document.getElementById('q-number-badge').textContent = `Q.${appState.currentIndex + 1}`;
+      document.getElementById('q-source-badge').textContent = q.source;
+      document.getElementById('q-cat-badge').textContent = q.category;
+
+      // 苦手ボタン状態
+      const weakBtn = document.getElementById('btn-toggle-weak-manual');
+      const isWeak = appState.weakIds.includes(qId);
+      if (isWeak) {
+        weakBtn.className = "px-2.5 py-0.5 rounded-full text-xs font-bold border transition bg-rose-600 border-rose-500 text-white";
+        weakBtn.textContent = "★ 苦手登録中";
+      } else {
+        weakBtn.className = "px-2.5 py-0.5 rounded-full text-xs font-bold border transition bg-slate-800 border-slate-600 text-slate-300 hover:border-rose-400";
+        weakBtn.textContent = "☆ 苦手マーク";
+      }
+
+      // 複数選択バナー
+      const multiNotice = document.getElementById('q-multi-notice');
+      if (q.multi) {
+        multiNotice.classList.remove('hidden');
+      } else {
+        multiNotice.classList.add('hidden');
+      }
+
+      // 問題文
+      document.getElementById('q-text').textContent = q.question;
+
+      // 図解
+      const diagBox = document.getElementById('q-diagram-container');
+      if (q.diagram) {
+        diagBox.innerHTML = q.diagram;
+        diagBox.classList.remove('hidden');
+      } else {
+        diagBox.innerHTML = '';
+        diagBox.classList.add('hidden');
+      }
+
+      // 選択肢描画
+      const optionsContainer = document.getElementById('q-options');
+      optionsContainer.innerHTML = '';
+
+      q.options.forEach((optText, idx) => {
+        const isSelected = selected.includes(idx);
+        const isCorrectOpt = q.answer.includes(idx);
+
+        let btnStyle = "border-slate-200 bg-white hover:bg-slate-50 text-slate-800";
+        let badgeStyle = "bg-slate-100 text-slate-700";
+        let statusIcon = "";
+
+        if (!isSubmitted) {
+          if (isSelected) {
+            btnStyle = "border-teal-600 bg-teal-50/70 text-navy-900 ring-2 ring-teal-500/30";
+            badgeStyle = "bg-teal-600 text-white";
+          }
+        } else {
+          if (isCorrectOpt && isSelected) {
+            btnStyle = "border-emerald-500 bg-emerald-50 text-emerald-950 ring-2 ring-emerald-500/30";
+            badgeStyle = "bg-emerald-600 text-white";
+            statusIcon = "⭕ 正解";
+          } else if (isCorrectOpt && !isSelected) {
+            btnStyle = "border-emerald-500 bg-emerald-50/50 text-emerald-900 border-dashed";
+            badgeStyle = "bg-emerald-600 text-white";
+            statusIcon = "✅ 正答";
+          } else if (!isCorrectOpt && isSelected) {
+            btnStyle = "border-rose-500 bg-rose-50 text-rose-950";
+            badgeStyle = "bg-rose-600 text-white";
+            statusIcon = "❌ 選択";
+          } else {
+            btnStyle = "border-slate-200 bg-slate-50/60 text-slate-400";
+            badgeStyle = "bg-slate-200 text-slate-500";
+          }
+        }
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.disabled = isSubmitted;
+        btn.onclick = () => handleOptionClick(idx);
+        btn.className = `w-full text-left p-3.5 sm:p-4 rounded-xl border-2 transition-all flex items-center justify-between gap-3 ${btnStyle}`;
+
+        btn.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-lg font-mono font-bold text-xs flex items-center justify-center shrink-0 ${badgeStyle}">
+              ${idx + 1}
+            </span>
+            <span class="text-sm sm:text-base font-bold leading-snug">${optText}</span>
+          </div>
+          ${statusIcon ? `<span class="text-xs font-extrabold shrink-0 px-2 py-0.5 rounded bg-white/80">${statusIcon}</span>` : ''}
+        `;
+        optionsContainer.appendChild(btn);
+      });
+
+      // 複数選択確定ボタン制御
+      const submitArea = document.getElementById('q-submit-area');
+      const submitBtn = document.getElementById('btn-submit-multi');
+      if (q.multi && !isSubmitted) {
+        submitArea.classList.remove('hidden');
+        submitBtn.disabled = selected.length !== 2;
+        submitBtn.textContent = selected.length === 2
+          ? "選択した2つで回答を確定する"
+          : `あと ${2 - selected.length} つ選択してください`;
+      } else {
+        submitArea.classList.add('hidden');
+      }
+
+      // 解説エリア制御
+      const expBox = document.getElementById('q-explanation-box');
+      if (isSubmitted) {
+        const correct = isAnswerCorrect(q, selected);
+        expBox.classList.remove('hidden', 'border-emerald-400', 'bg-emerald-50/60', 'border-rose-400', 'bg-rose-50/60');
+
+        const titleEl = document.getElementById('q-result-title');
+        const ansTextEl = document.getElementById('q-correct-answer-text');
+
+        if (correct) {
+          expBox.classList.add('border-emerald-400', 'bg-emerald-50/60');
+          titleEl.innerHTML = `<span class="text-emerald-600">⭕ 正解！素晴らしい！</span>`;
+          ansTextEl.className = "font-mono text-xs sm:text-sm font-bold px-3 py-1 rounded-lg bg-white border border-emerald-300 text-emerald-800";
+        } else {
+          expBox.classList.add('border-rose-400', 'bg-rose-50/60');
+          titleEl.innerHTML = `<span class="text-rose-600">❌ 不正解…（苦手リストに登録しました）</span>`;
+          ansTextEl.className = "font-mono text-xs sm:text-sm font-bold px-3 py-1 rounded-lg bg-white border border-rose-300 text-rose-800";
+        }
+
+        const ansNumbers = q.answer.map(i => i + 1).join(' , ');
+        ansTextEl.textContent = `正答番号： ${ansNumbers}`;
+        document.getElementById('q-explanation-text').textContent = q.explanation;
+        document.getElementById('q-note-point').textContent = q.notePoint;
+
+        const gotoNoteBtn = document.getElementById('btn-goto-note');
+        gotoNoteBtn.onclick = () => jumpToStudyChapter(q.noteChapter);
+      } else {
+        expBox.classList.add('hidden');
+      }
+
+      // 前後ボタン制御
+      document.getElementById('btn-prev-q').disabled = appState.currentIndex === 0;
+      const nextBtn = document.getElementById('btn-next-q');
+      if (appState.currentIndex >= appState.filteredIds.length - 1) {
+        nextBtn.textContent = "最初の問題へ戻る ↺";
+      } else {
+        nextBtn.textContent = "次の問題へ →";
+      }
+    }
+
+    function handleOptionClick(optIdx) {
+      const qId = appState.filteredIds[appState.currentIndex];
+      const q = QUESTIONS_DB.find(item => item.id === qId);
+      if (appState.submitted[qId]) return;
+
+      if (!q.multi) {
+        // 単一選択：即座に採点
+        appState.userAnswers[qId] = [optIdx];
+        finalizeAnswer(q, [optIdx]);
+      } else {
+        // 複数選択：トグル（最大2つ）
+        let cur = appState.userAnswers[qId] ? [...appState.userAnswers[qId]] : [];
+        if (cur.includes(optIdx)) {
+          cur = cur.filter(i => i !== optIdx);
+        } else {
+          if (cur.length >= 2) {
+            cur.shift(); // 古い選択を外して新しい選択を追加
+          }
+          cur.push(optIdx);
+        }
+        appState.userAnswers[qId] = cur;
+        renderQuiz();
+      }
+    }
+
+    function submitMultiChoice() {
+      const qId = appState.filteredIds[appState.currentIndex];
+      const q = QUESTIONS_DB.find(item => item.id === qId);
+      const selected = appState.userAnswers[qId] || [];
+      if (selected.length !== 2) return;
+      finalizeAnswer(q, selected);
+    }
+
+    function finalizeAnswer(q, selected) {
+      appState.submitted[q.id] = true;
+      const correct = isAnswerCorrect(q, selected);
+
+      if (!correct) {
+        if (!appState.weakIds.includes(q.id)) {
+          appState.weakIds.push(q.id);
+        }
+      }
+      saveState();
+      renderQuiz();
+    }
+
+    function toggleCurrentWeak() {
+      const qId = appState.filteredIds[appState.currentIndex];
+      if (appState.weakIds.includes(qId)) {
+        appState.weakIds = appState.weakIds.filter(id => id !== qId);
+      } else {
+        appState.weakIds.push(qId);
+      }
+      saveState();
+      renderQuiz();
+    }
+
+    function prevQuestion() {
+      if (appState.currentIndex > 0) {
+        appState.currentIndex--;
+        renderQuiz();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function nextQuestion() {
+      if (appState.currentIndex < appState.filteredIds.length - 1) {
+        appState.currentIndex++;
+      } else {
+        appState.currentIndex = 0;
+      }
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleQuestionMap() {
+      const panel = document.getElementById('question-map-panel');
+      panel.classList.toggle('hidden');
+      renderQuestionMap();
+    }
+
+    function renderQuestionMap() {
+      const grid = document.getElementById('question-map-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      appState.filteredIds.forEach((qId, idx) => {
+        const q = QUESTIONS_DB.find(item => item.id === qId);
+        const isSub = !!appState.submitted[qId];
+        const isCur = idx === appState.currentIndex;
+
+        let cls = "bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200";
+        if (isSub) {
+          const ok = isAnswerCorrect(q, appState.userAnswers[qId] || []);
+          cls = ok
+            ? "bg-emerald-100 text-emerald-800 border-emerald-300 font-bold"
+            : "bg-rose-100 text-rose-800 border-rose-300 font-bold";
+        }
+        if (isCur) {
+          cls += " ring-2 ring-navy-900";
+        }
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = idx + 1;
+        btn.className = `py-1.5 rounded-lg text-xs font-mono border transition ${cls}`;
+        btn.onclick = () => {
+          appState.currentIndex = idx;
+          renderQuiz();
+        };
+        grid.appendChild(btn);
+      });
+    }
+
+    // リセットモーダル制御
+    function openResetConfirm() {
+      document.getElementById('reset-modal').classList.remove('hidden');
+    }
+    function closeResetConfirm() {
+      document.getElementById('reset-modal').classList.add('hidden');
+    }
+    function executeReset() {
+      appState.userAnswers = {};
+      appState.submitted = {};
+      appState.weakIds = [];
+      appState.currentIndex = 0;
+      saveState();
+      closeResetConfirm();
+      if (appState.quizCategory === 'weak') {
+        setQuizCategory('all');
+      } else {
+        renderQuiz();
+      }
+    }
+
+    // =========================================================================
+    // 6. 初期化処理
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      updateHalfLifeSim();
+      updateGridSim();
+      updateTransformerSim();
+      updateDashboardStats();
+    });
+  </script>
+</body>
+</html>
